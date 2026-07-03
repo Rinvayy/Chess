@@ -1,0 +1,14 @@
+[
+{
+  "directory": "D:/Chess-main/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\chessCode.dir\\main.cpp.obj -c D:\\Chess-main\\Chess-main\\main.cpp",
+  "file": "D:/Chess-main/Chess-main/main.cpp",
+  "output": "D:/Chess-main/build/CMakeFiles/chessCode.dir/main.cpp.obj"
+},
+{
+  "directory": "D:/Chess-main/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\chessCode.dir\\board.cpp.obj -c D:\\Chess-main\\Chess-main\\board.cpp",
+  "file": "D:/Chess-main/Chess-main/board.cpp",
+  "output": "D:/Chess-main/build/CMakeFiles/chessCode.dir/board.cpp.obj"
+}
+]

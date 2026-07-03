@@ -1,0 +1,11 @@
+# ninja log v7
+3	1955	8046710617328066	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
+9	2258	8046710617390002	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
+2258	2410	8046710639877818	chessCode.exe	f5dc7224151dfe98
+50	1902	8047471489711934	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
+1902	2186	8047471508258607	chessCode.exe	f5dc7224151dfe98
+6	324	8047473409409593	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
+324	424	8047473412593276	chessCode.exe	f5dc7224151dfe98
+4	357	8047477380833436	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
+10	437	8047477380880957	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
+437	562	8047477385134294	chessCode.exe	f5dc7224151dfe98
