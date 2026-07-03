@@ -14,11 +14,35 @@ Board::Board() {        //конструктор доски
     currentPlayer = Color::WHITE;  //устанавливаем текущего игрока на белых
 }
 void Board::setupBoard() {              //метод расстановки фигур (пока пустой)
-    for (int r = 0; r < 8; ++r) {
-        for (int c = 0; c < 8; ++c) {
-            board[r][c] = Figure();
-        }
+    // ЧЕРНЫЕ ФИГУРЫ (ряд 0 - верх доски)
+    board[0][0] = Figure(FigureType::ROOK, Color::BLACK);
+    board[0][1] = Figure(FigureType::KNIGHT, Color::BLACK);
+    board[0][2] = Figure(FigureType::BISHOP, Color::BLACK);
+    board[0][3] = Figure(FigureType::QUEEN, Color::BLACK);
+    board[0][4] = Figure(FigureType::KING, Color::BLACK);
+    board[0][5] = Figure(FigureType::BISHOP, Color::BLACK);
+    board[0][6] = Figure(FigureType::KNIGHT, Color::BLACK);
+    board[0][7] = Figure(FigureType::ROOK, Color::BLACK);
+
+    // ЧЕРНЫЕ ПЕШКИ (ряд 1)
+    for (int c = 0; c < 8; ++c) {
+        board[1][c] = Figure(FigureType::PAWN, Color::BLACK);
     }
+
+    // БЕЛЫЕ ПЕШКИ (ряд 6)
+    for (int c = 0; c < 8; ++c) {
+        board[6][c] = Figure(FigureType::PAWN, Color::WHITE);
+    }
+
+    // БЕЛЫЕ ФИГУРЫ (ряд 7 - низ доски)
+    board[7][0] = Figure(FigureType::ROOK, Color::WHITE);
+    board[7][1] = Figure(FigureType::KNIGHT, Color::WHITE);
+    board[7][2] = Figure(FigureType::BISHOP, Color::WHITE);
+    board[7][3] = Figure(FigureType::QUEEN, Color::WHITE);
+    board[7][4] = Figure(FigureType::KING, Color::WHITE);
+    board[7][5] = Figure(FigureType::BISHOP, Color::WHITE);
+    board[7][6] = Figure(FigureType::KNIGHT, Color::WHITE);
+    board[7][7] = Figure(FigureType::ROOK, Color::WHITE);
 }
 
 void Board::printBoard() const {
