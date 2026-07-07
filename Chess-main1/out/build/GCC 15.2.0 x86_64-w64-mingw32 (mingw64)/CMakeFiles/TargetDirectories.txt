@@ -1,3 +1,0 @@
-C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/out/build/GCC 15.2.0 x86_64-w64-mingw32 (mingw64)/CMakeFiles/chessCode.dir
-C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/out/build/GCC 15.2.0 x86_64-w64-mingw32 (mingw64)/CMakeFiles/edit_cache.dir
-C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/out/build/GCC 15.2.0 x86_64-w64-mingw32 (mingw64)/CMakeFiles/rebuild_cache.dir
