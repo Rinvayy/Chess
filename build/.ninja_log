@@ -1,14 +1,17 @@
 # ninja log v7
-3	1955	8046710617328066	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
-9	2258	8046710617390002	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
-2258	2410	8046710639877818	chessCode.exe	f5dc7224151dfe98
-50	1902	8047471489711934	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
-1902	2186	8047471508258607	chessCode.exe	f5dc7224151dfe98
-6	324	8047473409409593	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
-324	424	8047473412593276	chessCode.exe	f5dc7224151dfe98
-4	357	8047477380833436	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
-10	437	8047477380880957	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
-437	562	8047477385134294	chessCode.exe	f5dc7224151dfe98
 5	376	8047482405903895	CMakeFiles/chessCode.dir/main.cpp.obj	c18bdf06f1216977
 11	471	8047482405966389	CMakeFiles/chessCode.dir/board.cpp.obj	a085d1eeed256783
 471	585	8047482410559446	chessCode.exe	f5dc7224151dfe98
+51	506	8052228935838496	CMakeFiles/Chess-main.dir/figures.cpp.obj	b036545a9bd61065
+36	710	8052228935589208	CMakeFiles/Chess-main.dir/main.cpp.obj	ee5989febd67625c
+59	1245	8052228935929726	CMakeFiles/Chess-main.dir/ai.cpp.obj	96d21f0b17e4c1ba
+80	656	8052239021391125	CMakeFiles/Chess-main.dir/figures.cpp.obj	b036545a9bd61065
+65	883	8052239021270419	CMakeFiles/Chess-main.dir/main.cpp.obj	ee5989febd67625c
+87	1253	8052239021487221	CMakeFiles/Chess-main.dir/ai.cpp.obj	96d21f0b17e4c1ba
+24	665	8052240612170832	CMakeFiles/Chess-main.dir/main.cpp.obj	ee5989febd67625c
+41	794	8052240612334845	CMakeFiles/Chess-main.dir/ai.cpp.obj	96d21f0b17e4c1ba
+33	941	8052240612261773	CMakeFiles/Chess-main.dir/board.cpp.obj	d2d18ffdedca30d8
+942	1591	8052240621344280	Chess-main.exe	f5c879c55c170bc3
+7	790	8052249975874631	CMakeFiles/Chess-main.dir/main.cpp.obj	ee5989febd67625c
+15	879	8052249975935009	CMakeFiles/Chess-main.dir/ai.cpp.obj	96d21f0b17e4c1ba
+879	1090	8052249984547452	Chess-main.exe	f5c879c55c170bc3

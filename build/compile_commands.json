@@ -1,14 +1,26 @@
 [
 {
   "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\chessCode.dir\\main.cpp.obj -c D:\\Chess-main\\Chess-main\\main.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\main.cpp.obj -c D:\\Chess-main\\Chess-main\\main.cpp",
   "file": "D:/Chess-main/Chess-main/main.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/chessCode.dir/main.cpp.obj"
+  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/main.cpp.obj"
 },
 {
   "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\chessCode.dir\\board.cpp.obj -c D:\\Chess-main\\Chess-main\\board.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\board.cpp.obj -c D:\\Chess-main\\Chess-main\\board.cpp",
   "file": "D:/Chess-main/Chess-main/board.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/chessCode.dir/board.cpp.obj"
+  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/board.cpp.obj"
+},
+{
+  "directory": "D:/Chess-main/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\figures.cpp.obj -c D:\\Chess-main\\Chess-main\\figures.cpp",
+  "file": "D:/Chess-main/Chess-main/figures.cpp",
+  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/figures.cpp.obj"
+},
+{
+  "directory": "D:/Chess-main/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\ai.cpp.obj -c D:\\Chess-main\\Chess-main\\ai.cpp",
+  "file": "D:/Chess-main/Chess-main/ai.cpp",
+  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/ai.cpp.obj"
 }
 ]

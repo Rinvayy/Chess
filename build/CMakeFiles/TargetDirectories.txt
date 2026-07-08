@@ -1,3 +1,3 @@
-D:/Chess-main/build/CMakeFiles/chessCode.dir
+D:/Chess-main/build/CMakeFiles/Chess-main.dir
 D:/Chess-main/build/CMakeFiles/edit_cache.dir
 D:/Chess-main/build/CMakeFiles/rebuild_cache.dir

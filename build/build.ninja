@@ -41,49 +41,65 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = D$:/Chess-main/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target chessCode
+# Object build statements for EXECUTABLE target Chess-main
 
 
 #############################################
-# Order-only phony target for chessCode
+# Order-only phony target for Chess-main
 
-build cmake_object_order_depends_target_chessCode: phony || .
+build cmake_object_order_depends_target_Chess-main: phony || .
 
-build CMakeFiles/chessCode.dir/main.cpp.obj: CXX_COMPILER__chessCode_unscanned_Debug D$:/Chess-main/Chess-main/main.cpp || cmake_object_order_depends_target_chessCode
+build CMakeFiles/Chess-main.dir/main.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/Chess-main/Chess-main/main.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
-  DEP_FILE = CMakeFiles\chessCode.dir\main.cpp.obj.d
+  DEP_FILE = CMakeFiles\Chess-main.dir\main.cpp.obj.d
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles\chessCode.dir
-  OBJECT_FILE_DIR = CMakeFiles\chessCode.dir
-  TARGET_SUPPORT_DIR = CMakeFiles\chessCode.dir
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
+  OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
-build CMakeFiles/chessCode.dir/board.cpp.obj: CXX_COMPILER__chessCode_unscanned_Debug D$:/Chess-main/Chess-main/board.cpp || cmake_object_order_depends_target_chessCode
+build CMakeFiles/Chess-main.dir/board.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/Chess-main/Chess-main/board.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
-  DEP_FILE = CMakeFiles\chessCode.dir\board.cpp.obj.d
+  DEP_FILE = CMakeFiles\Chess-main.dir\board.cpp.obj.d
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles\chessCode.dir
-  OBJECT_FILE_DIR = CMakeFiles\chessCode.dir
-  TARGET_SUPPORT_DIR = CMakeFiles\chessCode.dir
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
+  OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
+
+build CMakeFiles/Chess-main.dir/figures.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/Chess-main/Chess-main/figures.cpp || cmake_object_order_depends_target_Chess-main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\Chess-main.dir\figures.cpp.obj.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
+  OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
+
+build CMakeFiles/Chess-main.dir/ai.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/Chess-main/Chess-main/ai.cpp || cmake_object_order_depends_target_Chess-main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\Chess-main.dir\ai.cpp.obj.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
+  OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target chessCode
+# Link build statements for EXECUTABLE target Chess-main
 
 
 #############################################
-# Link the executable chessCode.exe
+# Link the executable Chess-main.exe
 
-build chessCode.exe: CXX_EXECUTABLE_LINKER__chessCode_Debug CMakeFiles/chessCode.dir/main.cpp.obj CMakeFiles/chessCode.dir/board.cpp.obj
+build Chess-main.exe: CXX_EXECUTABLE_LINKER__Chess-main_Debug CMakeFiles/Chess-main.dir/main.cpp.obj CMakeFiles/Chess-main.dir/board.cpp.obj CMakeFiles/Chess-main.dir/figures.cpp.obj CMakeFiles/Chess-main.dir/ai.cpp.obj
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\chessCode.dir
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = chessCode.exe
-  TARGET_IMPLIB = libchessCode.dll.a
-  TARGET_PDB = chessCode.exe.dbg
-  TARGET_SUPPORT_DIR = CMakeFiles\chessCode.dir
+  TARGET_FILE = Chess-main.exe
+  TARGET_IMPLIB = libChess-main.dll.a
+  TARGET_PDB = Chess-main.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
 
 #############################################
@@ -111,7 +127,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build chessCode: phony chessCode.exe
+build Chess-main: phony Chess-main.exe
 
 # =============================================================================
 # Folder targets.
@@ -121,7 +137,7 @@ build chessCode: phony chessCode.exe
 #############################################
 # Folder: D:/Chess-main/build
 
-build all: phony chessCode.exe
+build all: phony Chess-main.exe
 
 # =============================================================================
 # Built-in targets
