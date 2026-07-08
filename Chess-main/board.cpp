@@ -57,7 +57,7 @@ void Board::printBoard() const {
             
             if (figure.isEmpty()) {              //если клетка пуста, печатаем точку
                 std::cout << "· ";
-            } else {                //если на клетке есть фигура, печатаем её юникod-символ 
+            } else {                //если на клетке есть фигура, печатаем её юникoд-символ 
                 std::cout << figure.getUnicodeSymbol();
             }
         }
