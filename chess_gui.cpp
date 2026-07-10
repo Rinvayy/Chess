@@ -3,16 +3,11 @@
 #include <string>
 #include <vector>
 
-// ============================================================================
-// ШАХМАТНАЯ ДОСКА (ГРАФИЧЕСКАЯ ВЕРСИЯ)
-// ============================================================================
-
 class ChessBoard {
 private:
     static const int SIZE = 8;
     static const int CELL_SIZE = 80;
     static const int BOARD_SIZE = SIZE * CELL_SIZE;
-    
     sf::RenderWindow window;
     std::vector<std::vector<char>> board;
     bool isWhiteTurn;
@@ -33,7 +28,7 @@ public:
     
     void run() {
     while (window.isOpen()) {
-        // Обработка событий
+        //обработка событий
         while (auto event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
@@ -41,15 +36,13 @@ public:
             if (event->is<sf::Event::MouseButtonPressed>()) {
                 auto mousePos = event->getIf<sf::Event::MouseButtonPressed>();
                 if (mousePos && mousePos->button == sf::Mouse::Button::Left) {
-                    // В SFML 3.0.0 координаты хранятся в структуре position
                     int x = mousePos->position.x;
                     int y = mousePos->position.y;
                     handleClick(x, y);
                 }
             }
         }
-        
-        // Отрисовка
+        //отрисовка
         window.clear(sf::Color::White);
         drawBoard();
         drawPieces();
@@ -78,10 +71,8 @@ private:
     void drawPieces() {
         sf::Font font;
         if (!font.openFromFile("C:/Windows/Fonts/arial.ttf")) {
-            // Если шрифт не загрузился, пропускаем
             return;
         }
-        
         for (int row = 0; row < SIZE; ++row) {
             for (int col = 0; col < SIZE; ++col) {
                 char piece = board[row][col];
@@ -96,7 +87,6 @@ private:
                     } else {
                         text.setFillColor(sf::Color::Black);
                     }
-                    
                     float x = col * CELL_SIZE + CELL_SIZE / 2 - 25;
                     float y = row * CELL_SIZE + CELL_SIZE / 2 - 35;
                     text.setPosition({x, y});
@@ -112,12 +102,10 @@ private:
         if (!font.openFromFile("C:/Windows/Fonts/arial.ttf")) {
             return;
         }
-        
         sf::Text text(font);
         text.setCharacterSize(24);
         text.setFillColor(sf::Color::Black);
         text.setPosition({10, (float)(BOARD_SIZE + 10)});
-        
         std::string turn = isWhiteTurn ? "Ход: Белые" : "Ход: Черные";
         text.setString(turn);
         window.draw(text);
@@ -126,16 +114,11 @@ private:
     void handleClick(int x, int y) {
         int col = x / CELL_SIZE;
         int row = y / CELL_SIZE;
-        
         if (row >= 0 && row < SIZE && col >= 0 && col < SIZE) {
             std::cout << "Клик на клетку: " << (char)('a' + col) << (8 - row) << std::endl;
         }
     }
 };
-
-// ============================================================================
-// ГЛАВНАЯ ФУНКЦИЯ
-// ============================================================================
 
 int main() {
     ChessBoard game;
