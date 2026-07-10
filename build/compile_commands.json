@@ -1,26 +1,26 @@
 [
 {
-  "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\main.cpp.obj -c D:\\Chess-main\\Chess-main\\main.cpp",
-  "file": "D:/Chess-main/Chess-main/main.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/main.cpp.obj"
+  "directory": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\Chess-main.dir\\main.cpp.obj -c C:\\Users\\Colorful1\\OneDrive\\Desktop\\practice\\chessCode\\Chess-main\\main.cpp",
+  "file": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/main.cpp",
+  "output": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/Chess-main.dir/main.cpp.obj"
 },
 {
-  "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\board.cpp.obj -c D:\\Chess-main\\Chess-main\\board.cpp",
-  "file": "D:/Chess-main/Chess-main/board.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/board.cpp.obj"
+  "directory": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\Chess-main.dir\\board.cpp.obj -c C:\\Users\\Colorful1\\OneDrive\\Desktop\\practice\\chessCode\\Chess-main\\board.cpp",
+  "file": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/board.cpp",
+  "output": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/Chess-main.dir/board.cpp.obj"
 },
 {
-  "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\figures.cpp.obj -c D:\\Chess-main\\Chess-main\\figures.cpp",
-  "file": "D:/Chess-main/Chess-main/figures.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/figures.cpp.obj"
+  "directory": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\Chess-main.dir\\figures.cpp.obj -c C:\\Users\\Colorful1\\OneDrive\\Desktop\\practice\\chessCode\\Chess-main\\figures.cpp",
+  "file": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/figures.cpp",
+  "output": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/Chess-main.dir/figures.cpp.obj"
 },
 {
-  "directory": "D:/Chess-main/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -o CMakeFiles\\Chess-main.dir\\ai.cpp.obj -c D:\\Chess-main\\Chess-main\\ai.cpp",
-  "file": "D:/Chess-main/Chess-main/ai.cpp",
-  "output": "D:/Chess-main/build/CMakeFiles/Chess-main.dir/ai.cpp.obj"
+  "directory": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\Chess-main.dir\\ai.cpp.obj -c C:\\Users\\Colorful1\\OneDrive\\Desktop\\practice\\chessCode\\Chess-main\\ai.cpp",
+  "file": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/ai.cpp",
+  "output": "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/Chess-main.dir/ai.cpp.obj"
 }
 ]

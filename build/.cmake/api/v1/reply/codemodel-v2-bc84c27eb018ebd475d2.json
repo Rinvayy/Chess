@@ -50,8 +50,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Chess-main/build",
-		"source" : "D:/Chess-main/Chess-main"
+		"build" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
+		"source" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main"
 	},
 	"version" : 
 	{
