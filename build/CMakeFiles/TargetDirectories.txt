@@ -1,0 +1,3 @@
+C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/Chess-main.dir
+C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/edit_cache.dir
+C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/rebuild_cache.dir

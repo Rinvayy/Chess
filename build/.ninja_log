@@ -1,0 +1,6 @@
+# ninja log v7
+21	1228	8054056708817354	CMakeFiles/Chess-main.dir/figures.cpp.obj	e298b696d9044614
+4	1838	8054056708647013	CMakeFiles/Chess-main.dir/main.cpp.obj	76c94c1ebf7627cc
+28	1871	8054056708882604	CMakeFiles/Chess-main.dir/ai.cpp.obj	a58f27f6425a7a0
+12	1900	8054056708727286	CMakeFiles/Chess-main.dir/board.cpp.obj	6cdde87f97e3ae9f
+1901	2114	8054056727606316	Chess-main.exe	d646ea2d3b369348
