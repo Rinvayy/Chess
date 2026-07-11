@@ -1,0 +1,18 @@
+{
+    "cmake.sourceDirectory": "D:/chess/Chess/Chess-main",
+    "files.associations": {
+        "*.cpp": "cpp",
+        "*.h": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "fstream": "cpp",
+        "sstream": "cpp",
+        "cctype": "cpp"
+    },
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**",
+        "C:/msys64/mingw64/include"
+    ]
+}

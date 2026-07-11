@@ -349,3 +349,13 @@ bool Board::isValidKingMove(int fromRow, int fromCol, int toRow, int toCol) cons
     int dc = abs(fromCol - toCol);
     return dr <= 1 && dc <= 1 && (dr != 0 || dc != 0);
 }
+
+void Board::setCurrentPlayer(Color player) {
+    currentPlayer = player;
+}
+
+void Board::setFigure(int row, int col, const Figure& fig) {
+    if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+        board[row][col] = fig;
+    }
+}

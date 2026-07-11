@@ -40,7 +40,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Chess-main::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Chess-main-Debug-026c7fec217e3da7658a.json",
+					"jsonFile" : "target-Chess-main-Debug-adbcdd03c3a6b41f223e.json",
 					"name" : "Chess-main",
 					"projectIndex" : 0
 				}
@@ -50,8 +50,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build",
-		"source" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main"
+		"build" : "D:/chess/Chess/build",
+		"source" : "D:/chess/Chess/Chess-main"
 	},
 	"version" : 
 	{

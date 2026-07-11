@@ -29,6 +29,9 @@ public:
         return board[row][col];
     }
 
+    void setCurrentPlayer(Color player);
+    void setFigure(int row, int col, const Figure& fig);
+
 private:
     void setupBoard();
     bool isValidMove(int fromRow, int fromCol, int toRow, int toCol) const;

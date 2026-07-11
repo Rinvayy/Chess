@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main
+# Install script for directory: D:/chess/Chess/Chess-main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/install_local_manifest.txt"
+  file(WRITE "D:/chess/Chess/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "D:/chess/Chess/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

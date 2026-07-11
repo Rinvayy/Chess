@@ -2,23 +2,25 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build chess",
+            "label": "build chess gui",
             "type": "shell",
             "command": "C:/msys64/mingw64/bin/g++.exe",
             "args": [
                 "-std=c++17",
                 "-g",
-                "-mconsole",
-                "${workspaceFolder}/chess_gui.cpp",
+                "${workspaceFolder}/main_gui.cpp",
+                "${workspaceFolder}/board.cpp",
+                "${workspaceFolder}/ai.cpp",
+                "${workspaceFolder}/fen.cpp",
                 "-o",
                 "${workspaceFolder}/chess_gui.exe",
                 "-I",
                 "C:/msys64/mingw64/include",
                 "-L",
                 "C:/msys64/mingw64/lib",
-                "-lsfml-graphics",
-                "-lsfml-window",
-                "-lsfml-system",
+                "-lsfml-graphics-3",
+                "-lsfml-window-3",
+                "-lsfml-system-3",
                 "-lopengl32",
                 "-lfreetype",
                 "-lwinmm",
@@ -28,7 +30,26 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "detail": "Сборка GUI версии шахмат"
+        },
+        {
+            "label": "build chess console",
+            "type": "shell",
+            "command": "C:/msys64/mingw64/bin/g++.exe",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/board.cpp",
+                "${workspaceFolder}/ai.cpp",
+                "${workspaceFolder}/fen.cpp",
+                "-o",
+                "${workspaceFolder}/chess.exe"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"],
+            "detail": "Сборка консольной версии шахмат"
         }
     ]
 }

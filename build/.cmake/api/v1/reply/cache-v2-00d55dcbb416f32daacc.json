@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build"
+			"value" : "d:/chess/Chess/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -139,11 +139,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "CXX compiler"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/c++.exe"
+			"value" : "C:/msys64/mingw64/bin/g++.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -283,11 +283,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "C compiler"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/cc.exe"
+			"value" : "C:/msys64/mingw64/bin/gcc.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/CMakeFiles/pkgRedirects"
+			"value" : "D:/chess/Chess/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main"
+			"value" : "D:/chess/Chess/Chess-main"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1379,7 +1379,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build"
+			"value" : "D:/chess/Chess/build"
 		},
 		{
 			"name" : "chessCode_IS_TOP_LEVEL",
@@ -1403,7 +1403,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main"
+			"value" : "D:/chess/Chess/Chess-main"
 		}
 	],
 	"kind" : "cache",

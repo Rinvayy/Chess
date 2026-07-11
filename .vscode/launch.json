@@ -2,10 +2,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Запуск шахмат",
+            "name": "Запуск шахмат GUI",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/chess_gui.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/msys64/mingw64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build chess gui"
+        },
+        {
+            "name": "Запуск шахмат консоль",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/chess.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -20,7 +41,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "build chess"
+            "preLaunchTask": "build chess console"
         }
     ]
 }

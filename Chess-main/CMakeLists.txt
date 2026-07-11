@@ -6,5 +6,5 @@ add_executable(Chess-main
     board.cpp
     figures.cpp
     ai.cpp
+    fen.cpp
 )
-

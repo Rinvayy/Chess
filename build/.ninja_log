@@ -1,6 +1,7 @@
 # ninja log v7
-21	1228	8054056708817354	CMakeFiles/Chess-main.dir/figures.cpp.obj	e298b696d9044614
-4	1838	8054056708647013	CMakeFiles/Chess-main.dir/main.cpp.obj	76c94c1ebf7627cc
-28	1871	8054056708882604	CMakeFiles/Chess-main.dir/ai.cpp.obj	a58f27f6425a7a0
-12	1900	8054056708727286	CMakeFiles/Chess-main.dir/board.cpp.obj	6cdde87f97e3ae9f
-1901	2114	8054056727606316	Chess-main.exe	d646ea2d3b369348
+15	241	8054602182122050	CMakeFiles/Chess-main.dir/figures.cpp.obj	3cafaf28c7fde24c
+49	581	8054792491275196	CMakeFiles/Chess-main.dir/main.cpp.obj	351873b6d0be1d8d
+5	496	8054793890800946	CMakeFiles/Chess-main.dir/board.cpp.obj	da33cb840dd39829
+20	525	8054619512755914	CMakeFiles/Chess-main.dir/ai.cpp.obj	745e011d728923db
+496	631	8054793895728574	Chess-main.exe	b7f2198c2fce43a2
+12	433	8054793890878160	CMakeFiles/Chess-main.dir/fen.cpp.obj	2762f331c95fa8fe

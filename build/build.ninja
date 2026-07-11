@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/
+cmake_ninja_workdir = D$:/chess/Chess/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target Chess-main
 
@@ -49,7 +49,7 @@ cmake_ninja_workdir = C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/bu
 
 build cmake_object_order_depends_target_Chess-main: phony || .
 
-build CMakeFiles/Chess-main.dir/main.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/main.cpp || cmake_object_order_depends_target_Chess-main
+build CMakeFiles/Chess-main.dir/main.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/chess/Chess/Chess-main/main.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
   DEP_FILE = CMakeFiles\Chess-main.dir\main.cpp.obj.d
   FLAGS = -g
@@ -57,7 +57,7 @@ build CMakeFiles/Chess-main.dir/main.cpp.obj: CXX_COMPILER__Chess-main_unscanned
   OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
   TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
-build CMakeFiles/Chess-main.dir/board.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/board.cpp || cmake_object_order_depends_target_Chess-main
+build CMakeFiles/Chess-main.dir/board.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/chess/Chess/Chess-main/board.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
   DEP_FILE = CMakeFiles\Chess-main.dir\board.cpp.obj.d
   FLAGS = -g
@@ -65,7 +65,7 @@ build CMakeFiles/Chess-main.dir/board.cpp.obj: CXX_COMPILER__Chess-main_unscanne
   OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
   TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
-build CMakeFiles/Chess-main.dir/figures.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/figures.cpp || cmake_object_order_depends_target_Chess-main
+build CMakeFiles/Chess-main.dir/figures.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/chess/Chess/Chess-main/figures.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
   DEP_FILE = CMakeFiles\Chess-main.dir\figures.cpp.obj.d
   FLAGS = -g
@@ -73,9 +73,17 @@ build CMakeFiles/Chess-main.dir/figures.cpp.obj: CXX_COMPILER__Chess-main_unscan
   OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
   TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
 
-build CMakeFiles/Chess-main.dir/ai.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/ai.cpp || cmake_object_order_depends_target_Chess-main
+build CMakeFiles/Chess-main.dir/ai.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/chess/Chess/Chess-main/ai.cpp || cmake_object_order_depends_target_Chess-main
   CONFIG = Debug
   DEP_FILE = CMakeFiles\Chess-main.dir\ai.cpp.obj.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles\Chess-main.dir
+  OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\Chess-main.dir
+
+build CMakeFiles/Chess-main.dir/fen.cpp.obj: CXX_COMPILER__Chess-main_unscanned_Debug D$:/chess/Chess/Chess-main/fen.cpp || cmake_object_order_depends_target_Chess-main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\Chess-main.dir\fen.cpp.obj.d
   FLAGS = -g
   OBJECT_DIR = CMakeFiles\Chess-main.dir
   OBJECT_FILE_DIR = CMakeFiles\Chess-main.dir
@@ -89,7 +97,7 @@ build CMakeFiles/Chess-main.dir/ai.cpp.obj: CXX_COMPILER__Chess-main_unscanned_D
 #############################################
 # Link the executable Chess-main.exe
 
-build Chess-main.exe: CXX_EXECUTABLE_LINKER__Chess-main_Debug CMakeFiles/Chess-main.dir/main.cpp.obj CMakeFiles/Chess-main.dir/board.cpp.obj CMakeFiles/Chess-main.dir/figures.cpp.obj CMakeFiles/Chess-main.dir/ai.cpp.obj
+build Chess-main.exe: CXX_EXECUTABLE_LINKER__Chess-main_Debug CMakeFiles/Chess-main.dir/main.cpp.obj CMakeFiles/Chess-main.dir/board.cpp.obj CMakeFiles/Chess-main.dir/figures.cpp.obj CMakeFiles/Chess-main.dir/ai.cpp.obj CMakeFiles/Chess-main.dir/fen.cpp.obj
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -106,7 +114,7 @@ build Chess-main.exe: CXX_EXECUTABLE_LINKER__Chess-main_Debug CMakeFiles/Chess-m
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Colorful1\OneDrive\Desktop\practice\chessCode\build && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\chess\Chess\build && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -117,7 +125,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Colorful1\OneDrive\Desktop\practice\chessCode\build && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\Colorful1\OneDrive\Desktop\practice\chessCode\Chess-main -BC:\Users\Colorful1\OneDrive\Desktop\practice\chessCode\build"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\chess\Chess\build && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SD:\chess\Chess\Chess-main -BD:\chess\Chess\build"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -135,7 +143,7 @@ build Chess-main: phony Chess-main.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build
+# Folder: D:/chess/Chess/build
 
 build all: phony Chess-main.exe
 
@@ -146,14 +154,14 @@ build all: phony Chess-main.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/build/cmake_install.cmake: RERUN_CMAKE | C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCCompiler.cmake CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake
+build build.ninja D$:/chess/Chess/build/cmake_install.cmake: RERUN_CMAKE | C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCCompiler.cmake CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake D$:/chess/Chess/Chess-main/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/Colorful1/OneDrive/Desktop/practice/chessCode/Chess-main/CMakeLists.txt C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCCompiler.cmake CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake: phony
+build C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.2.1/CMakeCCompiler.cmake CMakeFiles/4.2.1/CMakeCXXCompiler.cmake CMakeFiles/4.2.1/CMakeRCCompiler.cmake CMakeFiles/4.2.1/CMakeSystem.cmake D$:/chess/Chess/Chess-main/CMakeLists.txt: phony
 
 
 #############################################

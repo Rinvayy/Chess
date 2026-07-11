@@ -1,16 +1,21 @@
 #include "board.h"
 #include "ai.h"
+#include "fen.h"
 #include <iostream>
 #include <string>
 #include <cctype>
 #include <limits>
+#include <fstream>
 
+// функция вывода справки по командам
 void printHelp() {
     std::cout << "\nКоманды:\n";
     std::cout << "  move <from> <to>  - сделать ход (например: move e2 e4)\n";
     std::cout << "  print             - показать доску\n";
-    std::cout << "  ai                - сделать ход за компьютер\n";
-    std::cout << "  switch            - переключить режим игры\n";
+    std::cout << "  ai                - сделать ход компьютера\n";
+    std::cout << "  switch            - включить/выключить режим игры с компьютером\n";
+    std::cout << "  save              - сохранить игру\n";
+    std::cout << "  load              - загрузить игру\n";
     std::cout << "  help              - показать эту справку\n";
     std::cout << "  exit              - выйти из игры\n\n";
 }
@@ -21,6 +26,25 @@ int main() {
     bool aiMode = false;
     Color humanColor = Color::WHITE;
     Color aiColor = Color::BLACK;
+    
+    // проверяем наличие сохраненной игры
+    std::ifstream saveFile("save.fen");
+    if (saveFile.good()) {
+        saveFile.close();
+        std::cout << "Найдена сохраненная партия. Загрузить? (y/n): ";
+        std::string answer;
+        std::cin >> answer;
+        if (answer == "y" || answer == "Y") {
+            if (FEN::loadGame("save.fen", board)) {
+                std::cout << "Игра загружена!\n";
+            } else {
+                std::cout << "Ошибка загрузки. Начинаем новую игру.\n";
+            }
+        } else {
+            std::cout << "Начинаем новую игру.\n";
+        }
+    }
+    
     std::cout << "Шахматы с компьютером\n";
     board.printBoard();
     printHelp();
@@ -28,7 +52,6 @@ int main() {
     std::string cmd;
     
     while (true) {
-        // Если включен режим AI и ход AI
         if (aiMode && board.getCurrentPlayer() == aiColor) {
             std::cout << "\nКомпьютер думает...\n";
             Move bestMove = ai.getBestMove(aiColor);
@@ -42,7 +65,7 @@ int main() {
                 }
                 break;
             }
-            // преобразуем координаты для вывода
+            
             char fromCol = 'a' + bestMove.fromCol;
             int fromRow = 8 - bestMove.fromRow;
             char toCol = 'a' + bestMove.toCol;
@@ -50,10 +73,11 @@ int main() {
             
             std::cout << "Компьютер делает ход: " << fromCol << fromRow << " " << toCol << toRow << "\n";
             
+            // выполняем ход
             if (board.makeMove(bestMove.fromRow, bestMove.fromCol, bestMove.toRow, bestMove.toCol)) {
                 board.printBoard();
                 
-                // проверяем окончание игры
+                // проверяем окончание игры после хода компьютера
                 Color current = board.getCurrentPlayer();
                 if (board.isCheckmate(current)) {
                     std::cout << "\nШАХ И МАТ! " 
@@ -73,17 +97,20 @@ int main() {
                               << (current == Color::WHITE ? "белых" : "черных") 
                               << " под шахом!\n";
                 }
+                // передаем ход другому игроку
                 board.switchPlayer();
             }
             continue;
         }
         
-        // ход человека
         std::cout << "\n> ";
         std::cin >> cmd;
         
+        // обработка команд
         if (cmd == "exit") {
-            std::cout << "До свидания!\n";
+            // сохраняем игру перед выходом
+            FEN::saveGame(board, "save.fen");
+            std::cout << "Игра сохранена. До свидания!\n";
             break;
         } 
         else if (cmd == "help") {
@@ -93,26 +120,28 @@ int main() {
             board.printBoard();
         }
         else if (cmd == "switch") {
+            // переключение режима игры с компьютером
             aiMode = !aiMode;
             if (aiMode) {
-                std::cout << "Режим игры с компьютера включен. Вы играете за " 
+                std::cout << "Режим игры с компьютером ВКЛЮЧЕН. Вы играете за " 
                           << (humanColor == Color::WHITE ? "белых" : "черных") 
                           << ", компьютер за " << (aiColor == Color::WHITE ? "белых" : "черных") << ".\n";
                 if (board.getCurrentPlayer() == aiColor) {
                     std::cout << "Ход компьютера...\n";
                 }
             } else {
-                std::cout << "Режим игры с компьютером выключен. Играйте вдвоем.\n";
+                std::cout << "Режим игры с компьютером ВЫКЛЮЧЕН. Играйте вдвоем.\n";
             }
         }
         else if (cmd == "ai") {
+            // принудительный ход компьютера
             if (!aiMode) {
                 std::cout << "Сначала включите режим игры с компьютером командой 'switch'\n";
                 continue;
             }
-            // принудительный ход компьютера (если его ход)
+            
             if (board.getCurrentPlayer() != aiColor) {
-                std::cout << "Сейчас не ход ИИ!\n";
+                std::cout << "Сейчас не ход компьютера!\n";
                 continue;
             }
             
@@ -161,6 +190,7 @@ int main() {
             }
         }
         else if (cmd == "move") {
+            // обработка хода игрока
             std::string from, to;
             std::cin >> from >> to;
             
@@ -169,7 +199,6 @@ int main() {
                 continue;
             }
             
-            // преобразуем координаты
             int fromCol = tolower(from[0]) - 'a';
             int fromRow = 8 - (from[1] - '0');
             int toCol = tolower(to[0]) - 'a';
@@ -181,7 +210,6 @@ int main() {
                 continue;
             }
             
-            // проверяем, что игрок ходит своей фигурой
             Figure fig = board.getFigure(fromRow, fromCol);
             if (fig.isEmpty()) {
                 std::cout << "На этой клетке нет фигуры!\n";
@@ -198,7 +226,6 @@ int main() {
             if (board.makeMove(fromRow, fromCol, toRow, toCol)) {
                 board.printBoard();
                 
-                // проверяем окончание игры
                 Color current = board.getCurrentPlayer();
                 if (board.isCheckmate(current)) {
                     std::cout << "\nШАХ И МАТ! " 
@@ -224,11 +251,27 @@ int main() {
                 std::cout << "Неверный ход! Попробуйте снова.\n";
             }
         }
+        else if (cmd == "save") {
+            // сохранение игры
+            if (FEN::saveGame(board, "save.fen")) {
+                std::cout << "Игра сохранена!\n";
+            } else {
+                std::cout << "Ошибка сохранения!\n";
+            }
+        }
+        else if (cmd == "load") {
+            // загрузка игры
+            if (FEN::loadGame("save.fen", board)) {
+                std::cout << "Игра загружена!\n";
+                board.printBoard();
+            } else {
+                std::cout << "Ошибка загрузки!\n";
+            }
+        }
         else {
             std::cout << "Неизвестная команда. Введите 'help' для справки.\n";
         }
     }
-
     std::cout << "\nИгра завершена. Спасибо за игру!\n";
     return 0;
 }
