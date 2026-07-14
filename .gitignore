@@ -1,0 +1,8 @@
+*.dll
+*.exe
+.vscode/
+*.json
+build/
+out/
+cmake-build-*/
+save.fen

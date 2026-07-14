@@ -42,31 +42,6 @@ void Board::setupBoard() {
     board[7][7] = Figure(FigureType::ROOK, Color::WHITE);
 }
 
-void Board::printBoard() const {
-    std::cout << "\n  a  b  c  d  e  f  g  h\n";
-    std::cout << " +------------------------+\n";
-
-    for (int r = 0; r < 8; ++r) {
-        std::cout << (8 - r) << "|";
-        
-        for (int c = 0; c < 8; ++c) {
-            Figure figure = board[r][c];
-            
-            if (figure.isEmpty()) {
-                std::cout << "· ";
-            } else {
-                std::cout << figure.getUnicodeSymbol();
-            }
-        }
-        std::cout << "|" << (8 - r) << "\n";
-    }
-    
-    std::cout << " +------------------------+\n";
-    std::cout << "  a  b  c  d  e  f  g  h\n\n";
-    
-    std::cout << "Ход: " << (currentPlayer == Color::WHITE ? "Белые" : "Черные") << "\n";
-}
-
 bool Board::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     if (!isValidMove(fromRow, fromCol, toRow, toCol)) {
         return false;
@@ -95,6 +70,8 @@ bool Board::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
             std::cout << "Пешка превратилась в ферзя!\n";
         }
     }
+
+    switchPlayer();
     return true;
 }
 
