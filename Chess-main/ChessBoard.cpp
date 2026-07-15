@@ -1,128 +1,44 @@
 #include "ChessBoard.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <cstdlib>
-#include <ctime>
 
-ChessBoard::ChessBoard(GameMode mode, bool pve) 
-    : window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Шахматы"),
-      ai(&board), isAIMode(pve), 
+ChessBoard::ChessBoard() 
+    : window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Chess"),
+      ai(&board), isAIMode(false), 
       humanColor(Color::WHITE), aiColor(Color::BLACK),
-      hasSelected(false), gameMode(mode), checkCount(0) {
+      hasSelected(false) {
     
     if (!font.openFromFile("font.ttf")) {
-        std::cout << "Шрифт не загружен!\n";
+        std::cout << "Font not loaded!\n";
     }
     
-    if (gameMode == GameMode::FISCHER) {
-        setupFischerBoard();
-    } else {
-        board = Board();
+    //загружаем текстуры фигур
+    if (!pieceRenderer.loadTextures()) {
+        std::cout << "Не удалось загрузить текстуры фигур\n";
     }
     
     std::ifstream saveFile("save.fen");
     if (saveFile.good()) {
         saveFile.close();
-        std::cout << "Найдена сохраненная игра. Загрузка...\n";
+        std::cout << "Saved game found. Loading...\n";
         FEN::loadGame("save.fen", board);
     }
 }
 
-void ChessBoard::setupFischerBoard() {
-    srand(time(0));
-    board = Board();
-    
-    std::vector<int> positions(8);
-    for (int i = 0; i < 8; ++i) positions[i] = i;
-    
-    for (int i = 7; i > 0; --i) {
-        int j = rand() % (i + 1);
-        std::swap(positions[i], positions[j]);
-    }
-    
-    std::vector<FigureType> pieces = {
-        FigureType::ROOK, FigureType::KNIGHT, FigureType::BISHOP, 
-        FigureType::QUEEN, FigureType::KING, FigureType::BISHOP,
-        FigureType::KNIGHT, FigureType::ROOK
-    };
-    
-    for (int i = 7; i > 0; --i) {
-        int j = rand() % (i + 1);
-        std::swap(pieces[i], pieces[j]);
-    }
-    
-    bool bishopsOnDifferentColors = false;
-    int attempts = 0;
-    while (!bishopsOnDifferentColors && attempts < 100) {
-        int bishop1 = -1, bishop2 = -1;
-        for (int i = 0; i < 8; ++i) {
-            if (pieces[i] == FigureType::BISHOP) {
-                if (bishop1 == -1) bishop1 = i;
-                else bishop2 = i;
-            }
-        }
-        if (bishop1 != -1 && bishop2 != -1) {
-            if ((bishop1 % 2) != (bishop2 % 2)) {
-                bishopsOnDifferentColors = true;
-            } else {
-                for (int i = 0; i < 8; ++i) {
-                    if (i != bishop1 && i != bishop2 && pieces[i] != FigureType::KING) {
-                        std::swap(pieces[i], pieces[bishop1]);
-                        break;
-                    }
-                }
-            }
-        }
-        attempts++;
-    }
-    
-    int kingPos = -1;
-    int rook1 = -1, rook2 = -1;
-    for (int i = 0; i < 8; ++i) {
-        if (pieces[i] == FigureType::KING) kingPos = i;
-        if (pieces[i] == FigureType::ROOK) {
-            if (rook1 == -1) rook1 = i;
-            else rook2 = i;
-        }
-    }
-    
-    if (kingPos != -1 && rook1 != -1 && rook2 != -1) {
-        if (kingPos < rook1 || kingPos > rook2) {
-            for (int i = rook1 + 1; i < rook2; ++i) {
-                if (pieces[i] != FigureType::KING) {
-                    std::swap(pieces[i], pieces[kingPos]);
-                    break;
-                }
-            }
-        }
-    }
-    
-    for (int i = 0; i < 8; ++i) {
-        board.setFigure(0, i, Figure(pieces[i], Color::BLACK));
-        board.setFigure(7, i, Figure(pieces[i], Color::WHITE));
-    }
-    
-    for (int i = 0; i < 8; ++i) {
-        board.setFigure(1, i, Figure(FigureType::PAWN, Color::BLACK));
-        board.setFigure(6, i, Figure(FigureType::PAWN, Color::WHITE));
-    }
-    
-    board.setCurrentPlayer(Color::WHITE);
-}
-
 void ChessBoard::run() {
     while (window.isOpen()) {
+        // AI ход
         if (isAIMode && board.getCurrentPlayer() == aiColor) {
             sf::sleep(sf::milliseconds(300));
             Move bestMove = ai.getBestMove(aiColor);
             if (bestMove.fromRow != -1) {
                 board.makeMove(bestMove.fromRow, bestMove.fromCol, 
                              bestMove.toRow, bestMove.toCol);
-                board.switchPlayer();
                 checkGameEnd();
             }
         }
         
+        // обработка событий
         while (auto event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 FEN::saveGame(board, "save.fen");
@@ -141,29 +57,25 @@ void ChessBoard::run() {
                 
                 if (key && key->scancode == sf::Keyboard::Scancode::S && key->control) {
                     FEN::saveGame(board, "save.fen");
-                    std::cout << "Игра сохранена!\n";
+                    std::cout << "Game saved!\n";
                 }
                 
                 if (key && key->scancode == sf::Keyboard::Scancode::L && key->control) {
                     if (FEN::loadGame("save.fen", board)) {
-                        std::cout << "Игра загружена!\n";
+                        std::cout << "Game loaded!\n";
                         hasSelected = false;
                     }
                 }
                 
                 if (key && key->scancode == sf::Keyboard::Scancode::A) {
                     isAIMode = !isAIMode;
-                    std::cout << "Режим AI: " << (isAIMode ? "ВКЛ" : "ВЫКЛ") << "\n";
+                    std::cout << "AI mode: " << (isAIMode ? "ON" : "OFF") << "\n";
                 }
                 
                 if (key && key->scancode == sf::Keyboard::Scancode::R) {
                     board = Board();
-                    if (gameMode == GameMode::FISCHER) {
-                        setupFischerBoard();
-                    }
                     hasSelected = false;
-                    checkCount = 0;
-                    std::cout << "Новая игра!\n";
+                    std::cout << "New game!\n";
                 }
             }
         }
@@ -230,37 +142,12 @@ void ChessBoard::drawPieces() {
         for (int col = 0; col < SIZE; ++col) {
             Figure fig = board.getFigure(row, col);
             if (!fig.isEmpty()) {
-                sf::Text text(font);
-                text.setString(getPieceSymbol(fig));
-                text.setCharacterSize(60);
-                text.setStyle(sf::Text::Bold);
+                float x = col * CELL_SIZE + 10;
+                float y = row * CELL_SIZE + 10;
                 
-                if (fig.color == Color::WHITE) {
-                    text.setFillColor(sf::Color::White);
-                    text.setOutlineColor(sf::Color::Black);
-                    text.setOutlineThickness(2);
-                } else {
-                    text.setFillColor(sf::Color::Black);
-                }
-                
-                float x = col * CELL_SIZE + CELL_SIZE / 2 - 25 + 10;
-                float y = row * CELL_SIZE + CELL_SIZE / 2 - 35 + 10;
-                text.setPosition({x, y});
-                window.draw(text);
+                pieceRenderer.drawPiece(window, fig, x, y, CELL_SIZE);
             }
         }
-    }
-}
-
-std::string ChessBoard::getPieceSymbol(const Figure& fig) {
-    switch (fig.type) {
-        case FigureType::KING:   return "K";
-        case FigureType::QUEEN:  return "Q";
-        case FigureType::ROOK:   return "R";
-        case FigureType::BISHOP: return "B";
-        case FigureType::KNIGHT: return "N";
-        case FigureType::PAWN:   return "P";
-        default: return "";
     }
 }
 
@@ -275,57 +162,33 @@ void ChessBoard::drawInfoPanel() {
     int yPos = 30;
     
     sf::Text title(font);
-    title.setString("ИНФОРМАЦИЯ");
-    title.setCharacterSize(18);
+    title.setString("INFO");
+    title.setCharacterSize(20);
     title.setFillColor(sf::Color::White);
     title.setStyle(sf::Text::Bold);
-    title.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
+    title.setPosition({(float)BOARD_SIZE + 55, (float)yPos});
     window.draw(title);
-    yPos += 35;
-    
-    sf::Text modeText(font);
-    std::string modeStr;
-    switch (gameMode) {
-        case GameMode::CLASSIC: modeStr = "Классика"; break;
-        case GameMode::FISCHER: modeStr = "Фишера"; break;
-        case GameMode::THREE_CHECKS: modeStr = "3 шаха"; break;
-    }
-    modeText.setString("Режим: " + modeStr);
-    modeText.setCharacterSize(14);
-    modeText.setFillColor(sf::Color(200, 200, 200));
-    modeText.setPosition({(float)BOARD_SIZE + 25, (float)yPos});
-    window.draw(modeText);
-    yPos += 25;
+    yPos += 40;
     
     sf::Text turnText(font);
-    turnText.setString("Ход: " + std::string(board.getCurrentPlayer() == Color::WHITE ? "Белые" : "Черные"));
-    turnText.setCharacterSize(15);
+    turnText.setString("Turn: " + std::string(board.getCurrentPlayer() == Color::WHITE ? "White" : "Black"));
+    turnText.setCharacterSize(16);
     turnText.setFillColor(sf::Color(200, 200, 200));
-    turnText.setPosition({(float)BOARD_SIZE + 25, (float)yPos});
+    turnText.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
     window.draw(turnText);
-    yPos += 28;
-    
-    if (gameMode == GameMode::THREE_CHECKS) {
-        sf::Text checkText(font);
-        checkText.setString("Шахов: " + std::to_string(checkCount) + "/3");
-        checkText.setCharacterSize(15);
-        checkText.setFillColor(sf::Color(255, 200, 0));
-        checkText.setPosition({(float)BOARD_SIZE + 25, (float)yPos});
-        window.draw(checkText);
-        yPos += 28;
-    }
+    yPos += 30;
     
     sf::Text aiText(font);
-    aiText.setString("AI: " + std::string(isAIMode ? "ВКЛ" : "ВЫКЛ"));
-    aiText.setCharacterSize(15);
+    aiText.setString("AI: " + std::string(isAIMode ? "ON" : "OFF"));
+    aiText.setCharacterSize(16);
     aiText.setFillColor(isAIMode ? sf::Color::Green : sf::Color(200, 200, 200));
-    aiText.setPosition({(float)BOARD_SIZE + 25, (float)yPos});
+    aiText.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
     window.draw(aiText);
-    yPos += 35;
+    yPos += 40;
     
     if (board.isInCheck(board.getCurrentPlayer())) {
         sf::Text checkText(font);
-        checkText.setString("ШАХ!");
+        checkText.setString("CHECK!");
         checkText.setCharacterSize(18);
         checkText.setFillColor(sf::Color::Red);
         checkText.setStyle(sf::Text::Bold);
@@ -335,27 +198,27 @@ void ChessBoard::drawInfoPanel() {
     }
     
     sf::Text controls(font);
-    controls.setString("УПРАВЛЕНИЕ:");
-    controls.setCharacterSize(15);
+    controls.setString("CONTROLS:");
+    controls.setCharacterSize(16);
     controls.setFillColor(sf::Color(200, 200, 200));
     controls.setStyle(sf::Text::Bold);
-    controls.setPosition({(float)BOARD_SIZE + 25, (float)yPos});
+    controls.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
     window.draw(controls);
     yPos += 25;
     
     std::vector<std::string> shortcuts = {
-        "A - AI вкл/выкл",
-        "R - Новая игра",
-        "Ctrl+S - Сохранить",
-        "Ctrl+L - Загрузить"
+        "A - AI mode",
+        "R - New game",
+        "Ctrl+S - Save",
+        "Ctrl+L - Load"
     };
     
     for (const auto& shortcut : shortcuts) {
         sf::Text text(font);
         text.setString(shortcut);
-        text.setCharacterSize(13);
+        text.setCharacterSize(14);
         text.setFillColor(sf::Color(180, 180, 180));
-        text.setPosition({(float)BOARD_SIZE + 28, (float)yPos});
+        text.setPosition({(float)BOARD_SIZE + 35, (float)yPos});
         window.draw(text);
         yPos += 22;
     }
@@ -378,20 +241,11 @@ void ChessBoard::handleClick(int x, int y) {
             selectedRow = row;
             selectedCol = col;
             hasSelected = true;
-            std::cout << "Выбрано: " << (char)('a' + col) << (8 - row) << "\n";
+            std::cout << "Selected: " << (char)('a' + col) << (8 - row) << "\n";
         }
     } else {
         if (board.makeMove(selectedRow, selectedCol, row, col)) {
-            board.switchPlayer();
             hasSelected = false;
-            
-            if (gameMode == GameMode::THREE_CHECKS) {
-                if (board.isInCheck(board.getCurrentPlayer())) {
-                    checkCount++;
-                    std::cout << "Шах! " << checkCount << "/3" << std::endl;
-                }
-            }
-            
             checkGameEnd();
         } else {
             if (!fig.isEmpty() && fig.color == board.getCurrentPlayer()) {
@@ -404,26 +258,13 @@ void ChessBoard::handleClick(int x, int y) {
     }
 }
 
-bool ChessBoard::isThreeChecksEnd() {
-    if (gameMode != GameMode::THREE_CHECKS) return false;
-    return checkCount >= 3;
-}
-
 void ChessBoard::checkGameEnd() {
     Color current = board.getCurrentPlayer();
-    
-    if (gameMode == GameMode::THREE_CHECKS) {
-        if (isThreeChecksEnd()) {
-            std::cout << "ТРИ ШАХА! " << (current == Color::WHITE ? "Белые" : "Черные") << " проиграли!\n";
-            return;
-        }
-    }
-    
     if (board.isCheckmate(current)) {
-        std::cout << "МАТ! " << (current == Color::WHITE ? "Белые" : "Черные") << " проиграли!\n";
+        std::cout << "CHECKMATE! " << (current == Color::WHITE ? "White" : "Black") << " loses!\n";
     } else if (board.isStalemate(current)) {
-        std::cout << "ПАТ! Ничья!\n";
+        std::cout << "STALEMATE! Draw!\n";
     } else if (board.isInCheck(current)) {
-        std::cout << "ШАХ! " << (current == Color::WHITE ? "Белые" : "Черные") << " король под шахом!\n";
+        std::cout << "CHECK! " << (current == Color::WHITE ? "White" : "Black") << " king is in check!\n";
     }
 }

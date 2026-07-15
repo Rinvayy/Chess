@@ -1,17 +1,16 @@
 #ifndef FIGURES_H
 #define FIGURES_H
-
 #include <string>
 #include <cctype>
 
 enum class FigureType {
-    NONE,
-    PAWN,
-    KNIGHT,
-    BISHOP,
-    ROOK,
-    QUEEN,
-    KING
+    NONE,    //пустая клетка
+    KING,    //король
+    QUEEN,   //ферзь
+    ROOK,    //ладья
+    BISHOP,  //слон
+    KNIGHT,  //конь
+    PAWN     //пешка
 };
 
 enum class Color {
@@ -22,39 +21,35 @@ enum class Color {
 
 class Figure {
 public:
-    FigureType type = FigureType::NONE;
-    Color color = Color::NONE;
+    FigureType type;
+    Color color;
     
-    Figure() = default;
+    Figure() : type(FigureType::NONE), color(Color::NONE) {}
+    
     Figure(FigureType t, Color c) : type(t), color(c) {}
-
+    
     bool isEmpty() const {
         return type == FigureType::NONE;
     }
     
     char getSymbol() const {
-        if (isEmpty()) {
-            return '.';
-        }
+        if (isEmpty()) return '.';
         
         char symbol;
         switch (type) {
-            case FigureType::PAWN:   symbol = 'P'; break;
-            case FigureType::KNIGHT: symbol = 'N'; break;
-            case FigureType::BISHOP: symbol = 'B'; break;
-            case FigureType::ROOK:   symbol = 'R'; break;
-            case FigureType::QUEEN:  symbol = 'Q'; break;
             case FigureType::KING:   symbol = 'K'; break;
-            default:                symbol = '?'; break;
+            case FigureType::QUEEN:  symbol = 'Q'; break;
+            case FigureType::ROOK:   symbol = 'R'; break;
+            case FigureType::BISHOP: symbol = 'B'; break;
+            case FigureType::KNIGHT: symbol = 'N'; break;
+            case FigureType::PAWN:   symbol = 'P'; break;
+            default: return '.';
         }
-
-        return (color == Color::WHITE) ? symbol : tolower(symbol);
+        return (color == Color::WHITE) ? symbol : std::tolower(symbol);
     }
-
+    
     std::string getUnicodeSymbol() const {
-        if (isEmpty()) {
-            return "· ";
-        }
+        if (isEmpty()) return "· ";
         
         if (color == Color::WHITE) {
             switch (type) {
@@ -64,7 +59,7 @@ public:
                 case FigureType::BISHOP: return "♗ ";
                 case FigureType::KNIGHT: return "♘ ";
                 case FigureType::PAWN:   return "♙ ";
-                default:                return "  ";
+                default: return "  ";
             }
         } else {
             switch (type) {
@@ -74,7 +69,7 @@ public:
                 case FigureType::BISHOP: return "♝ ";
                 case FigureType::KNIGHT: return "♞ ";
                 case FigureType::PAWN:   return "♟ ";
-                default:                return "  ";
+                default: return "  ";
             }
         }
     }

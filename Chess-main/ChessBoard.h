@@ -8,7 +8,7 @@
 #include "board.h"
 #include "ai.h"
 #include "fen.h"
-#include "Menu.h"
+#include "PieceRenderer.h" 
 
 class ChessBoard {
 private:
@@ -21,6 +21,8 @@ private:
     sf::RenderWindow window;
     sf::Font font;
     
+    PieceRenderer pieceRenderer; 
+    
     Board board;
     AI ai;
     
@@ -31,23 +33,17 @@ private:
     int selectedRow, selectedCol;
     bool hasSelected;
     
-    GameMode gameMode;
-    int checkCount;
-    
 public:
-    ChessBoard(GameMode mode = GameMode::CLASSIC, bool pve = false);
+    ChessBoard();
     void run();
     
 private:
     void drawBoard();
     void drawCoordinate(int row, int col);
     void drawPieces();
-    std::string getPieceSymbol(const Figure& fig);
     void drawInfoPanel();
     void handleClick(int x, int y);
     void checkGameEnd();
-    void setupFischerBoard();
-    bool isThreeChecksEnd();
 };
 
 #endif

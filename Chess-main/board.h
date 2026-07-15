@@ -1,7 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H 
-
-#include "figures.h"
+#include "PieceRenderer.h"
 #include <string>
 
 class Board {
