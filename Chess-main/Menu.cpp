@@ -11,7 +11,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     
     //кнопка играть
     std::vector<std::string> mainNames = {"Играть"};
-    float y = 250;
+    float y = 200;
     
     for (size_t i = 0; i < mainNames.size(); ++i) {
         sf::Text text(font);
@@ -40,6 +40,38 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         mainButtons.push_back(text);
         mainRects.push_back(rect);
         y += 100;
+    }
+    
+    // кнопки выбора режима игры
+    std::vector<std::string> modeNames = {"Классика", "Фишера", "3 шаха"};
+    float modeY = 320;
+    
+    for (size_t i = 0; i < modeNames.size(); ++i) {
+        sf::Text text(font);
+        std::string modeStr = modeNames[i];
+        text.setString(sf::String::fromUtf8(modeStr.begin(), modeStr.end()));
+        text.setCharacterSize(24);
+        text.setFillColor(sf::Color::White);
+        text.setStyle(sf::Text::Bold);
+        
+        float textWidth = text.getLocalBounds().size.x;
+        float textHeight = text.getLocalBounds().size.y;
+        
+        sf::RectangleShape rect(sf::Vector2f({180, 50}));
+        rect.setFillColor(sf::Color(100, 70, 40));
+        rect.setOutlineColor(sf::Color(80, 50, 30));
+        rect.setOutlineThickness(2);
+        
+        float rectX = 100 + i * 210;
+        float rectY = modeY;
+        rect.setPosition({rectX, rectY});
+        
+        float textX = rectX + (180 - textWidth) / 2;
+        float textY = rectY + (50 - textHeight) / 2 - 5;
+        text.setPosition({textX, textY});
+        
+        modeButtons.push_back(text);
+        modeRects.push_back(rect);
     }
     
     //кнопка выхода
@@ -74,17 +106,17 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     modeFrame.setFillColor(sf::Color(180, 160, 120));
     modeFrame.setOutlineColor(sf::Color(80, 40, 20));
     modeFrame.setOutlineThickness(2);
-    modeFrame.setPosition({175, 378});
+    modeFrame.setPosition({175, 430});
     
     toggleBg.setSize(sf::Vector2f({120, 50}));
     toggleBg.setFillColor(sf::Color(100, 70, 40));
     toggleBg.setOutlineColor(sf::Color(80, 50, 30));
     toggleBg.setOutlineThickness(2);
-    toggleBg.setPosition({340, 400});
+    toggleBg.setPosition({340, 452});
     
     toggleKnob.setSize(sf::Vector2f({40, 40}));
     toggleKnob.setFillColor(sf::Color(200, 150, 100));
-    toggleKnob.setPosition({345, 405});
+    toggleKnob.setPosition({345, 457});
     
     toggleText1 = new sf::Text(font);
     std::string text1 = "На двоих";
@@ -92,7 +124,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     toggleText1->setCharacterSize(18);
     toggleText1->setFillColor(sf::Color(150, 100, 50));
     toggleText1->setStyle(sf::Text::Bold);
-    toggleText1->setPosition({220, 410});
+    toggleText1->setPosition({220, 462});
     
     toggleText2 = new sf::Text(font);
     std::string text2 = "С компьютером";
@@ -100,7 +132,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     toggleText2->setCharacterSize(18);
     toggleText2->setFillColor(sf::Color(120, 70, 30));
     toggleText2->setStyle(sf::Text::Bold);
-    toggleText2->setPosition({470, 410});
+    toggleText2->setPosition({470, 462});
 }
 
 Menu::~Menu() {
@@ -132,8 +164,29 @@ void Menu::draw() {
     title.setFillColor(sf::Color(100, 50, 20));
     title.setStyle(sf::Text::Bold);
     float titleX = (800 - title.getLocalBounds().size.x) / 2;
-    title.setPosition({titleX, 80});
+    title.setPosition({titleX, 60});
     window.draw(title);
+    
+    // заголовок выбора режима
+    sf::Text modeTitle(font);
+    std::string modeTitleStr = "Выберите режим:";
+    modeTitle.setString(sf::String::fromUtf8(modeTitleStr.begin(), modeTitleStr.end()));
+    modeTitle.setCharacterSize(20);
+    modeTitle.setFillColor(sf::Color(80, 40, 20));
+    modeTitle.setStyle(sf::Text::Bold);
+    modeTitle.setPosition({100, 290});
+    window.draw(modeTitle);
+    
+    // рисуем кнопки режимов
+    for (size_t i = 0; i < modeButtons.size(); ++i) {
+        if (selectedMode == (int)i) {
+            modeRects[i].setFillColor(sf::Color(180, 120, 60));
+        } else {
+            modeRects[i].setFillColor(sf::Color(100, 70, 40));
+        }
+        window.draw(modeRects[i]);
+        window.draw(modeButtons[i]);
+    }
     
     for (size_t i = 0; i < mainButtons.size(); ++i) {
         if (selectedButton == (int)i) {
@@ -146,7 +199,7 @@ void Menu::draw() {
     }
     
     if (exitHovered) {
-        exitRect.setFillColor(sf::Color(180, 50, 30));  //кнопка выхода при наведении мыши
+        exitRect.setFillColor(sf::Color(180, 50, 30));
     } else {
         exitRect.setFillColor(sf::Color(139, 30, 20));
     }
@@ -159,7 +212,7 @@ void Menu::draw() {
     modeFrame.setFillColor(sf::Color(180, 160, 120));
     modeFrame.setOutlineColor(sf::Color(80, 40, 20));
     modeFrame.setOutlineThickness(2);
-    modeFrame.setPosition({175, 378});
+    modeFrame.setPosition({175, 430});
     window.draw(modeFrame);
     
     window.draw(toggleBg);
@@ -167,11 +220,11 @@ void Menu::draw() {
     if (isPvE) {
         toggleText1->setFillColor(sf::Color(150, 100, 50));
         toggleText2->setFillColor(sf::Color::Black);
-        toggleKnob.setPosition({345 + 70, 405});
+        toggleKnob.setPosition({345 + 70, 457});
     } else {
         toggleText1->setFillColor(sf::Color::Black);
         toggleText2->setFillColor(sf::Color(120, 70, 30));
-        toggleKnob.setPosition({345, 405});
+        toggleKnob.setPosition({345, 457});
     }
     
     window.draw(*toggleText1);
@@ -182,6 +235,16 @@ void Menu::draw() {
 }
 
 void Menu::handleClick(int x, int y) {
+    // проверяем клик по кнопкам режимов
+    for (size_t i = 0; i < modeRects.size(); ++i) {
+        sf::FloatRect rect = modeRects[i].getGlobalBounds();
+        if (rect.contains({(float)x, (float)y})) {
+            selectedMode = i;
+            std::cout << "Selected mode: " << i << std::endl;
+            return;
+        }
+    }
+    
     for (size_t i = 0; i < mainRects.size(); ++i) {
         sf::FloatRect rect = mainRects[i].getGlobalBounds();
         if (rect.contains({(float)x, (float)y})) {
@@ -206,6 +269,15 @@ void Menu::handleClick(int x, int y) {
 }
 
 void Menu::handleMouseMove(int x, int y) {
+    // проверяем наведение на кнопки режимов
+    for (size_t i = 0; i < modeRects.size(); ++i) {
+        sf::FloatRect rect = modeRects[i].getGlobalBounds();
+        if (rect.contains({(float)x, (float)y})) {
+            selectedMode = i;
+            return;
+        }
+    }
+    
     bool found = false;
     for (size_t i = 0; i < mainRects.size(); ++i) {
         sf::FloatRect rect = mainRects[i].getGlobalBounds();
@@ -244,4 +316,8 @@ void Menu::resetSelection() {
     selectedButton = -1;
     exitHovered = false;
     toggleHovered = false;
+}
+
+GameMode Menu::getGameMode() const {
+    return static_cast<GameMode>(selectedMode);
 }

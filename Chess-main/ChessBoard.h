@@ -8,6 +8,7 @@
 #include "board.h"
 #include "ai.h"
 #include "fen.h"
+#include "Menu.h"
 
 class ChessBoard {
 private:
@@ -30,8 +31,11 @@ private:
     int selectedRow, selectedCol;
     bool hasSelected;
     
+    GameMode gameMode;
+    int checkCount;
+    
 public:
-    ChessBoard();
+    ChessBoard(GameMode mode = GameMode::CLASSIC, bool pve = false);
     void run();
     
 private:
@@ -42,6 +46,8 @@ private:
     void drawInfoPanel();
     void handleClick(int x, int y);
     void checkGameEnd();
+    void setupFischerBoard();
+    bool isThreeChecksEnd();
 };
 
 #endif
