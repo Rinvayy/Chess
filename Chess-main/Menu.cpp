@@ -9,7 +9,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     }
     fontLoaded = true;
     
-    //кнопка играть
+    // кнопка играть
     std::vector<std::string> mainNames = {"Играть"};
     float y = 200;
     
@@ -74,7 +74,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         modeRects.push_back(rect);
     }
     
-    //кнопка выхода
+    // кнопка выхода
     exitText = new sf::Text(font);
     std::string exitStr = "Выход";
     exitText->setString(sf::String::fromUtf8(exitStr.begin(), exitStr.end()));
@@ -91,7 +91,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     float exitRectY = 600 - exitRectHeight - 20;
     
     exitRect.setSize(sf::Vector2f({exitRectWidth, exitRectHeight}));
-    exitRect.setFillColor(sf::Color(139, 30, 20)); 
+    exitRect.setFillColor(sf::Color(139, 30, 20));
     exitRect.setOutlineColor(sf::Color(100, 20, 10));
     exitRect.setOutlineThickness(2);
     exitRect.setPosition({exitRectX, exitRectY});
@@ -100,14 +100,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     float exitY = exitRectY + (exitRectHeight - exitTextHeight) / 2 - 2;
     exitText->setPosition({exitX, exitY});
     
-    //переключатель режима игры
-    sf::RectangleShape modeFrame;
-    modeFrame.setSize(sf::Vector2f({460, 90}));
-    modeFrame.setFillColor(sf::Color(180, 160, 120));
-    modeFrame.setOutlineColor(sf::Color(80, 40, 20));
-    modeFrame.setOutlineThickness(2);
-    modeFrame.setPosition({175, 430});
-    
+    // переключатель режима игры
     toggleBg.setSize(sf::Vector2f({120, 50}));
     toggleBg.setFillColor(sf::Color(100, 70, 40));
     toggleBg.setOutlineColor(sf::Color(80, 50, 30));
@@ -206,7 +199,7 @@ void Menu::draw() {
     window.draw(exitRect);
     window.draw(*exitText);
     
-    //рамка для переключателя режима игры
+    // рамка для переключателя режима игры
     sf::RectangleShape modeFrame;
     modeFrame.setSize(sf::Vector2f({460, 90}));
     modeFrame.setFillColor(sf::Color(180, 160, 120));
@@ -316,8 +309,4 @@ void Menu::resetSelection() {
     selectedButton = -1;
     exitHovered = false;
     toggleHovered = false;
-}
-
-GameMode Menu::getGameMode() const {
-    return static_cast<GameMode>(selectedMode);
 }

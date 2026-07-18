@@ -4,29 +4,20 @@
 #include <vector>
 #include <string>
 
-enum class GameMode {
-    CLASSIC,
-    FISCHER,
-    THREE_CHECKS
-};
-
 class Menu {
 private:
     sf::RenderWindow& window;
     sf::Font font;
     bool fontLoaded = false;
     
-    //главные кнопки
     std::vector<sf::Text> mainButtons;
     std::vector<sf::RectangleShape> mainRects;
     int selectedButton = -1;
     
-    //кнопка выхода
     sf::Text* exitText = nullptr;
     sf::RectangleShape exitRect;
     bool exitHovered = false;
     
-    //переключатель режима игры
     sf::Text* toggleText1 = nullptr;
     sf::Text* toggleText2 = nullptr;
     sf::RectangleShape toggleBg;
@@ -34,10 +25,9 @@ private:
     bool isPvE = false;
     bool toggleHovered = false;
     
-    // выбор режима игры
     std::vector<sf::Text> modeButtons;
     std::vector<sf::RectangleShape> modeRects;
-    int selectedMode = 0; // 0 - классика, 1 - Фишера, 2 - 3 шаха
+    int selectedMode = 0;
     bool modeHovered = false;
     
 public:
@@ -50,7 +40,7 @@ public:
     int getSelected() const;
     void resetSelection();
     bool getIsPvE() const { return isPvE; }
-    GameMode getGameMode() const;
+    int getGameMode() const { return selectedMode; }
 };
 
 #endif

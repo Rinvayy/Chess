@@ -10,6 +10,12 @@
 #include "fen.h"
 #include "PieceRenderer.h" 
 
+enum class GameMode {
+    CLASSIC,
+    FISCHER,
+    THREE_CHECKS
+};
+
 class ChessBoard {
 private:
     static const int SIZE = 8;
@@ -33,8 +39,11 @@ private:
     int selectedRow, selectedCol;
     bool hasSelected;
     
+    GameMode gameMode;
+    
 public:
-    ChessBoard();
+    ChessBoard(GameMode mode, bool aiMode);
+    
     void run();
     
 private:

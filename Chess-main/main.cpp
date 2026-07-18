@@ -29,14 +29,26 @@ int main() {
                         int selected = menu.getSelected();
                         
                         if (selected == 0) {
-                            //играть
+                            // gолучаем режимы из меню
+                            bool isPvE = menu.getIsPvE();
+                            int modeIndex = menu.getGameMode();
+                            
+                            
+                            GameMode gameMode;
+                            if (modeIndex == 1) {
+                                gameMode = GameMode::FISCHER;
+                            } else if (modeIndex == 2) {
+                                gameMode = GameMode::THREE_CHECKS;
+                            } else {
+                                gameMode = GameMode::CLASSIC;
+                            }
+                            
                             inMenu = false;
                             menu.resetSelection();
                             window.close();
                             
-                            game = std::make_unique<ChessBoard>();
-                            
-                            //запуск игры
+                            // cоздаем игру с параметрами
+                            game = std::make_unique<ChessBoard>(gameMode, isPvE);
                             game->run();
                             
                             window.create(sf::VideoMode({800, 600}), "Chess - Menu");
@@ -45,7 +57,6 @@ int main() {
                             std::cout << "Use the switch below\n";
                             menu.resetSelection();
                         } else if (selected == 2) {
-                            //выход
                             window.close();
                         }
                     }

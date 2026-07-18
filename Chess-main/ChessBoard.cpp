@@ -2,25 +2,38 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-ChessBoard::ChessBoard() 
+ChessBoard::ChessBoard(GameMode mode, bool aiMode) 
     : window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Chess"),
-      ai(&board), isAIMode(false), 
-      humanColor(Color::WHITE), aiColor(Color::BLACK),
+      ai(&board),
+      gameMode(mode),
+      isAIMode(aiMode),
+      humanColor(Color::WHITE),
+      aiColor(Color::BLACK),
       hasSelected(false) {
     
     if (!font.openFromFile("font.ttf")) {
         std::cout << "Font not loaded!\n";
     }
     
-    //загружаем текстуры фигур
     if (!pieceRenderer.loadTextures()) {
         std::cout << "Не удалось загрузить текстуры фигур\n";
     }
     
+    // выводим выбранный режим
+    if (mode == GameMode::FISCHER) {
+        std::cout << "Режим: Шахматы Фишера\n";
+    } else if (mode == GameMode::THREE_CHECKS) {
+        std::cout << "Режим: Шахматы до 3-х шахов\n";
+    } else {
+        std::cout << "Режим: Классические шахматы\n";
+    }
+    
+    std::cout << "Режим игры: " << (aiMode ? "Против компьютера" : "На двоих") << "\n";
+    
     std::ifstream saveFile("save.fen");
     if (saveFile.good()) {
         saveFile.close();
-        std::cout << "Saved game found. Loading...\n";
+        std::cout << "Найдена сохраненная игра. Загрузка...\n";
         FEN::loadGame("save.fen", board);
     }
 }
@@ -186,6 +199,19 @@ void ChessBoard::drawInfoPanel() {
     window.draw(aiText);
     yPos += 40;
     
+    // показываем режим игры
+    sf::Text modeText(font);
+    std::string modeStr;
+    if (gameMode == GameMode::FISCHER) modeStr = "Fischer";
+    else if (gameMode == GameMode::THREE_CHECKS) modeStr = "3 Checks";
+    else modeStr = "Classic";
+    modeText.setString("Mode: " + modeStr);
+    modeText.setCharacterSize(14);
+    modeText.setFillColor(sf::Color(200, 200, 200));
+    modeText.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
+    window.draw(modeText);
+    yPos += 30;
+    
     if (board.isInCheck(board.getCurrentPlayer())) {
         sf::Text checkText(font);
         checkText.setString("CHECK!");
@@ -232,6 +258,7 @@ void ChessBoard::handleClick(int x, int y) {
     
     if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) return;
     
+    // не даем ходить компьютеру
     if (isAIMode && board.getCurrentPlayer() == aiColor) return;
     
     Figure fig = board.getFigure(row, col);
