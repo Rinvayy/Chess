@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.10)
+
 project(Chess VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(SFML_DIR "C:/msys64/mingw64/lib/cmake/SFML")
 
 find_package(SFML COMPONENTS Graphics Window System REQUIRED)
 
@@ -27,6 +30,10 @@ target_link_libraries(Chess-main PRIVATE
     sfml-system
 )
 
+target_include_directories(Chess-main PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${SFML_INCLUDE_DIR}
+)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/font.ttf 
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

@@ -10,6 +10,7 @@ private:
     
 public:
     Board();
+    void resetBoard(Color firstPlayer = Color::WHITE);
     void printBoard() const;
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
     bool isInCheck(Color color) const;

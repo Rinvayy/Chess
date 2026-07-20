@@ -8,7 +8,7 @@
 #include "board.h"
 #include "ai.h"
 #include "fen.h"
-#include "PieceRenderer.h" 
+#include "PieceRenderer.h"
 
 enum class GameMode {
     CLASSIC,
@@ -27,24 +27,32 @@ private:
     sf::RenderWindow window;
     sf::Font font;
     
-    PieceRenderer pieceRenderer; 
-    
+    PieceRenderer pieceRenderer;
     Board board;
     AI ai;
     
     bool isAIMode;
-    Color humanColor;
+    Color playerColor;
     Color aiColor;
+    Color humanColor;
     
     int selectedRow, selectedCol;
     bool hasSelected;
     
     GameMode gameMode;
     
+    sf::RectangleShape switchColorButton;
+    sf::Text* switchColorText = nullptr;
+    bool isSwitchColorHovered = false;
+    
 public:
-    ChessBoard(GameMode mode, bool aiMode);
+    ChessBoard(GameMode mode, bool aiMode, Color playerColor = Color::WHITE);
+    ~ChessBoard();
     
     void run();
+    void switchPlayerColor();
+    void handleSwitchColorClick();
+    void drawSwitchColorButton();
     
 private:
     void drawBoard();

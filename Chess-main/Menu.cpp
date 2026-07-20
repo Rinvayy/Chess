@@ -1,5 +1,14 @@
 #include "Menu.h"
 #include <iostream>
+#include <memory>
+
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+const int MAIN_BUTTON_WIDTH = 300;
+const int MAIN_BUTTON_HEIGHT = 70;
+const int MODE_BUTTON_WIDTH = 180;
+const int MODE_BUTTON_HEIGHT = 50;
+const int EXIT_PADDING = 20;
 
 Menu::Menu(sf::RenderWindow& win) : window(win) {
     if (!font.openFromFile("font.ttf")) {
@@ -9,7 +18,6 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     }
     fontLoaded = true;
     
-    // кнопка играть
     std::vector<std::string> mainNames = {"Играть"};
     float y = 200;
     
@@ -24,17 +32,17 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         float textWidth = text.getLocalBounds().size.x;
         float textHeight = text.getLocalBounds().size.y;
         
-        sf::RectangleShape rect(sf::Vector2f({300, 70}));
+        sf::RectangleShape rect(sf::Vector2f({(float)MAIN_BUTTON_WIDTH, (float)MAIN_BUTTON_HEIGHT}));
         rect.setFillColor(sf::Color(139, 69, 19));
         rect.setOutlineColor(sf::Color(100, 50, 20));
         rect.setOutlineThickness(2);
         
-        float rectX = (800 - 300) / 2;
+        float rectX = (WINDOW_WIDTH - MAIN_BUTTON_WIDTH) / 2;
         float rectY = y;
         rect.setPosition({rectX, rectY});
         
-        float textX = rectX + (300 - textWidth) / 2;
-        float textY = rectY + (70 - textHeight) / 2 - 10;
+        float textX = rectX + (MAIN_BUTTON_WIDTH - textWidth) / 2;
+        float textY = rectY + (MAIN_BUTTON_HEIGHT - textHeight) / 2 - 10;
         text.setPosition({textX, textY});
         
         mainButtons.push_back(text);
@@ -42,9 +50,10 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         y += 100;
     }
     
-    // кнопки выбора режима игры
     std::vector<std::string> modeNames = {"Классика", "Фишера", "3 шаха"};
     float modeY = 320;
+    float modeStartX = 100;
+    float modeSpacing = 210;
     
     for (size_t i = 0; i < modeNames.size(); ++i) {
         sf::Text text(font);
@@ -57,25 +66,24 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         float textWidth = text.getLocalBounds().size.x;
         float textHeight = text.getLocalBounds().size.y;
         
-        sf::RectangleShape rect(sf::Vector2f({180, 50}));
+        sf::RectangleShape rect(sf::Vector2f({(float)MODE_BUTTON_WIDTH, (float)MODE_BUTTON_HEIGHT}));
         rect.setFillColor(sf::Color(100, 70, 40));
         rect.setOutlineColor(sf::Color(80, 50, 30));
         rect.setOutlineThickness(2);
         
-        float rectX = 100 + i * 210;
+        float rectX = modeStartX + i * modeSpacing;
         float rectY = modeY;
         rect.setPosition({rectX, rectY});
         
-        float textX = rectX + (180 - textWidth) / 2;
-        float textY = rectY + (50 - textHeight) / 2 - 5;
+        float textX = rectX + (MODE_BUTTON_WIDTH - textWidth) / 2;
+        float textY = rectY + (MODE_BUTTON_HEIGHT - textHeight) / 2 - 5;
         text.setPosition({textX, textY});
         
         modeButtons.push_back(text);
         modeRects.push_back(rect);
     }
     
-    // кнопка выхода
-    exitText = new sf::Text(font);
+    exitText = std::make_unique<sf::Text>(font);
     std::string exitStr = "Выход";
     exitText->setString(sf::String::fromUtf8(exitStr.begin(), exitStr.end()));
     exitText->setCharacterSize(20);
@@ -87,8 +95,8 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     
     float exitRectWidth = exitTextWidth + 30;
     float exitRectHeight = exitTextHeight + 20;
-    float exitRectX = 800 - exitRectWidth - 20;
-    float exitRectY = 600 - exitRectHeight - 20;
+    float exitRectX = WINDOW_WIDTH - exitRectWidth - EXIT_PADDING;
+    float exitRectY = WINDOW_HEIGHT - exitRectHeight - EXIT_PADDING;
     
     exitRect.setSize(sf::Vector2f({exitRectWidth, exitRectHeight}));
     exitRect.setFillColor(sf::Color(139, 30, 20));
@@ -100,7 +108,6 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     float exitY = exitRectY + (exitRectHeight - exitTextHeight) / 2 - 2;
     exitText->setPosition({exitX, exitY});
     
-    // переключатель режима игры
     toggleBg.setSize(sf::Vector2f({120, 50}));
     toggleBg.setFillColor(sf::Color(100, 70, 40));
     toggleBg.setOutlineColor(sf::Color(80, 50, 30));
@@ -111,7 +118,7 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     toggleKnob.setFillColor(sf::Color(200, 150, 100));
     toggleKnob.setPosition({345, 457});
     
-    toggleText1 = new sf::Text(font);
+    toggleText1 = std::make_unique<sf::Text>(font);
     std::string text1 = "На двоих";
     toggleText1->setString(sf::String::fromUtf8(text1.begin(), text1.end()));
     toggleText1->setCharacterSize(18);
@@ -119,19 +126,13 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     toggleText1->setStyle(sf::Text::Bold);
     toggleText1->setPosition({220, 462});
     
-    toggleText2 = new sf::Text(font);
+    toggleText2 = std::make_unique<sf::Text>(font);
     std::string text2 = "С компьютером";
     toggleText2->setString(sf::String::fromUtf8(text2.begin(), text2.end()));
     toggleText2->setCharacterSize(18);
     toggleText2->setFillColor(sf::Color(120, 70, 30));
     toggleText2->setStyle(sf::Text::Bold);
     toggleText2->setPosition({470, 462});
-}
-
-Menu::~Menu() {
-    delete exitText;
-    delete toggleText1;
-    delete toggleText2;
 }
 
 void Menu::draw() {
@@ -156,11 +157,10 @@ void Menu::draw() {
     title.setCharacterSize(72);
     title.setFillColor(sf::Color(100, 50, 20));
     title.setStyle(sf::Text::Bold);
-    float titleX = (800 - title.getLocalBounds().size.x) / 2;
+    float titleX = (WINDOW_WIDTH - title.getLocalBounds().size.x) / 2;
     title.setPosition({titleX, 60});
     window.draw(title);
     
-    // заголовок выбора режима
     sf::Text modeTitle(font);
     std::string modeTitleStr = "Выберите режим:";
     modeTitle.setString(sf::String::fromUtf8(modeTitleStr.begin(), modeTitleStr.end()));
@@ -170,7 +170,6 @@ void Menu::draw() {
     modeTitle.setPosition({100, 290});
     window.draw(modeTitle);
     
-    // рисуем кнопки режимов
     for (size_t i = 0; i < modeButtons.size(); ++i) {
         if (selectedMode == (int)i) {
             modeRects[i].setFillColor(sf::Color(180, 120, 60));
@@ -199,7 +198,6 @@ void Menu::draw() {
     window.draw(exitRect);
     window.draw(*exitText);
     
-    // рамка для переключателя режима игры
     sf::RectangleShape modeFrame;
     modeFrame.setSize(sf::Vector2f({460, 90}));
     modeFrame.setFillColor(sf::Color(180, 160, 120));
@@ -228,7 +226,6 @@ void Menu::draw() {
 }
 
 void Menu::handleClick(int x, int y) {
-    // проверяем клик по кнопкам режимов
     for (size_t i = 0; i < modeRects.size(); ++i) {
         sf::FloatRect rect = modeRects[i].getGlobalBounds();
         if (rect.contains({(float)x, (float)y})) {
@@ -262,7 +259,6 @@ void Menu::handleClick(int x, int y) {
 }
 
 void Menu::handleMouseMove(int x, int y) {
-    // проверяем наведение на кнопки режимов
     for (size_t i = 0; i < modeRects.size(); ++i) {
         sf::FloatRect rect = modeRects[i].getGlobalBounds();
         if (rect.contains({(float)x, (float)y})) {

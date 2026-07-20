@@ -13,6 +13,17 @@ Board::Board() {
     currentPlayer = Color::WHITE;
 }
 
+void Board::resetBoard(Color firstPlayer) {
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            board[r][c] = Figure();
+        }
+    }
+    
+    setupBoard();
+    currentPlayer = firstPlayer;
+}
+
 void Board::setupBoard() {
     // ЧЕРНЫЕ ФИГУРЫ
     board[0][0] = Figure(FigureType::ROOK, Color::BLACK);
@@ -76,7 +87,6 @@ bool Board::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
 }
 
 bool Board::isInCheck(Color color) const {
-    // находим короля указанного цвета
     int kingRow = -1, kingCol = -1;
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -103,11 +113,9 @@ bool Board::isCheckmate(Color color) {
             for (int tr = 0; tr < 8; ++tr) {
                 for (int tc = 0; tc < 8; ++tc) {
                     Figure captured = board[tr][tc];
-                    // временно делаем ход
                     board[tr][tc] = fig;
                     board[r][c] = Figure();
                     bool stillInCheck = isInCheck(color);
-                    // откатываем ход
                     board[r][c] = fig;
                     board[tr][tc] = captured;
                     if (!stillInCheck) {
@@ -130,11 +138,9 @@ bool Board::isStalemate(Color color) {
                 for (int tc = 0; tc < 8; ++tc) {
                     if (!isValidMove(r, c, tr, tc)) continue;
                     Figure captured = board[tr][tc];
-                    // временно делаем ход
                     board[tr][tc] = fig;
                     board[r][c] = Figure();
                     bool stillInCheck = isInCheck(color);
-                    // откатываем ход
                     board[r][c] = fig;
                     board[tr][tc] = captured;
                     if (!stillInCheck) {
@@ -188,7 +194,6 @@ bool Board::isPathClear(int fromRow, int fromCol, int toRow, int toCol) const {
 }
 
 bool Board::isPositionUnderAttack(int row, int col, Color attackerColor) const {
-    // проверка от пешек
     int pawnDirection = (attackerColor == Color::WHITE) ? -1 : 1;
     int pawnRow = row + pawnDirection;
     
@@ -207,7 +212,6 @@ bool Board::isPositionUnderAttack(int row, int col, Color attackerColor) const {
         }
     }
     
-    // проверка от коней
     int knightMoves[8][2] = {{-2,-1}, {-2,1}, {-1,-2}, {-1,2}, {1,-2}, {1,2}, {2,-1}, {2,1}};
     for (int i = 0; i < 8; ++i) {
         int nr = row + knightMoves[i][0];
@@ -220,7 +224,6 @@ bool Board::isPositionUnderAttack(int row, int col, Color attackerColor) const {
         }
     }
     
-    // проверка от слонов и ферзей (диагонали)
     int directions[4][2] = {{-1,-1}, {-1,1}, {1,-1}, {1,1}};
     for (int i = 0; i < 4; ++i) {
         int r = row + directions[i][0];
@@ -239,7 +242,6 @@ bool Board::isPositionUnderAttack(int row, int col, Color attackerColor) const {
         }
     }
     
-    // проверка от ладей и ферзей (прямые линии)
     int directions2[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
     for (int i = 0; i < 4; ++i) {
         int r = row + directions2[i][0];
@@ -258,7 +260,6 @@ bool Board::isPositionUnderAttack(int row, int col, Color attackerColor) const {
         }
     }
     
-    // проверка от короля
     int kingMoves[8][2] = {{-1,-1}, {-1,0}, {-1,1}, {0,-1}, {0,1}, {1,-1}, {1,0}, {1,1}};
     for (int i = 0; i < 8; ++i) {
         int nr = row + kingMoves[i][0];

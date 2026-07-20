@@ -2,45 +2,68 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-ChessBoard::ChessBoard(GameMode mode, bool aiMode) 
+ChessBoard::ChessBoard(GameMode mode, bool aiMode, Color playerColor) 
     : window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Chess"),
       ai(&board),
       gameMode(mode),
       isAIMode(aiMode),
-      humanColor(Color::WHITE),
-      aiColor(Color::BLACK),
+      playerColor(playerColor),
       hasSelected(false) {
+    
+    if (aiMode) {
+        aiColor = (playerColor == Color::WHITE) ? Color::BLACK : Color::WHITE;
+        humanColor = playerColor;
+    } else {
+        humanColor = Color::WHITE;
+        aiColor = Color::BLACK;
+    }
     
     if (!font.openFromFile("font.ttf")) {
         std::cout << "Font not loaded!\n";
     }
     
     if (!pieceRenderer.loadTextures()) {
-        std::cout << "Не удалось загрузить текстуры фигур\n";
+        std::cout << "Failed to load piece textures\n";
     }
     
-    // выводим выбранный режим
-    if (mode == GameMode::FISCHER) {
-        std::cout << "Режим: Шахматы Фишера\n";
-    } else if (mode == GameMode::THREE_CHECKS) {
-        std::cout << "Режим: Шахматы до 3-х шахов\n";
-    } else {
-        std::cout << "Режим: Классические шахматы\n";
-    }
+    //кнопка переключения цвета
+    switchColorButton.setSize(sf::Vector2f({140, 30}));
+    switchColorButton.setFillColor(sf::Color(80, 40, 20));
+    switchColorButton.setOutlineColor(sf::Color(60, 30, 10));
+    switchColorButton.setOutlineThickness(2);
+    switchColorButton.setPosition({(float)(BOARD_SIZE + 30), 310});
     
-    std::cout << "Режим игры: " << (aiMode ? "Против компьютера" : "На двоих") << "\n";
+    switchColorText = new sf::Text(font);
+    std::string btnText = "Сменить цвет";
+    switchColorText->setString(sf::String::fromUtf8(btnText.begin(), btnText.end()));
+    switchColorText->setCharacterSize(14);
+    switchColorText->setFillColor(sf::Color::White);
+    switchColorText->setStyle(sf::Text::Bold);
+    
+    float textX = BOARD_SIZE + 30 + (140 - switchColorText->getLocalBounds().size.x) / 2;
+    float textY = 310 + (30 - switchColorText->getLocalBounds().size.y) / 2 - 2;
+    switchColorText->setPosition({(float)textX, (float)textY});
+    
+    //устанавливаем начальную позицию
+    board.resetBoard(Color::WHITE);
+    
+    std::cout << "You are playing as: " << (playerColor == Color::WHITE ? "White" : "Black") << "\n";
+    std::cout << "Mode: " << (aiMode ? "vs AI" : "Two players") << "\n";
     
     std::ifstream saveFile("save.fen");
     if (saveFile.good()) {
         saveFile.close();
-        std::cout << "Найдена сохраненная игра. Загрузка...\n";
+        std::cout << "Saved game found. Loading...\n";
         FEN::loadGame("save.fen", board);
     }
 }
 
+ChessBoard::~ChessBoard() {
+    delete switchColorText;
+}
+
 void ChessBoard::run() {
     while (window.isOpen()) {
-        // AI ход
         if (isAIMode && board.getCurrentPlayer() == aiColor) {
             sf::sleep(sf::milliseconds(300));
             Move bestMove = ai.getBestMove(aiColor);
@@ -51,7 +74,6 @@ void ChessBoard::run() {
             }
         }
         
-        // обработка событий
         while (auto event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 FEN::saveGame(board, "save.fen");
@@ -61,7 +83,20 @@ void ChessBoard::run() {
             if (event->is<sf::Event::MouseButtonPressed>()) {
                 auto mousePos = event->getIf<sf::Event::MouseButtonPressed>();
                 if (mousePos && mousePos->button == sf::Mouse::Button::Left) {
-                    handleClick(mousePos->position.x, mousePos->position.y);
+                    if (switchColorButton.getGlobalBounds().contains(
+                            {(float)mousePos->position.x, (float)mousePos->position.y})) {
+                        handleSwitchColorClick();
+                    } else {
+                        handleClick(mousePos->position.x, mousePos->position.y);
+                    }
+                }
+            }
+            
+            if (event->is<sf::Event::MouseMoved>()) {
+                auto mousePos = event->getIf<sf::Event::MouseMoved>();
+                if (mousePos) {
+                    isSwitchColorHovered = switchColorButton.getGlobalBounds().contains(
+                        {(float)mousePos->position.x, (float)mousePos->position.y});
                 }
             }
             
@@ -97,8 +132,37 @@ void ChessBoard::run() {
         drawBoard();
         drawPieces();
         drawInfoPanel();
+        drawSwitchColorButton();
         window.display();
     }
+}
+
+void ChessBoard::switchPlayerColor() {
+    playerColor = (playerColor == Color::WHITE) ? Color::BLACK : Color::WHITE;
+    
+    if (isAIMode) {
+        aiColor = (playerColor == Color::WHITE) ? Color::BLACK : Color::WHITE;
+    }
+    
+    board.resetBoard(Color::WHITE);
+    hasSelected = false;
+    
+    std::cout << "Color changed! You are now playing as: " 
+              << (playerColor == Color::WHITE ? "White" : "Black") << "\n";
+}
+
+void ChessBoard::handleSwitchColorClick() {
+    switchPlayerColor();
+}
+
+void ChessBoard::drawSwitchColorButton() {
+    if (isSwitchColorHovered) {
+        switchColorButton.setFillColor(sf::Color(120, 60, 30));
+    } else {
+        switchColorButton.setFillColor(sf::Color(80, 40, 20));
+    }
+    window.draw(switchColorButton);
+    window.draw(*switchColorText);
 }
 
 void ChessBoard::drawBoard() {
@@ -199,7 +263,6 @@ void ChessBoard::drawInfoPanel() {
     window.draw(aiText);
     yPos += 40;
     
-    // показываем режим игры
     sf::Text modeText(font);
     std::string modeStr;
     if (gameMode == GameMode::FISCHER) modeStr = "Fischer";
@@ -258,7 +321,6 @@ void ChessBoard::handleClick(int x, int y) {
     
     if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) return;
     
-    // не даем ходить компьютеру
     if (isAIMode && board.getCurrentPlayer() == aiColor) return;
     
     Figure fig = board.getFigure(row, col);

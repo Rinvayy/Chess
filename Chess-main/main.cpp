@@ -1,7 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <string>
-#include <vector>
 #include <memory>
 #include "Menu.h"
 #include "ChessBoard.h"
@@ -29,10 +27,8 @@ int main() {
                         int selected = menu.getSelected();
                         
                         if (selected == 0) {
-                            // gолучаем режимы из меню
                             bool isPvE = menu.getIsPvE();
                             int modeIndex = menu.getGameMode();
-                            
                             
                             GameMode gameMode;
                             if (modeIndex == 1) {
@@ -47,8 +43,9 @@ int main() {
                             menu.resetSelection();
                             window.close();
                             
-                            // cоздаем игру с параметрами
-                            game = std::make_unique<ChessBoard>(gameMode, isPvE);
+                            Color playerColor = Color::WHITE;
+                            
+                            game = std::make_unique<ChessBoard>(gameMode, isPvE, playerColor);
                             game->run();
                             
                             window.create(sf::VideoMode({800, 600}), "Chess - Menu");

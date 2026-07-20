@@ -1,8 +1,10 @@
 #ifndef MENU_H
 #define MENU_H
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <memory>
 
 class Menu {
 private:
@@ -14,25 +16,23 @@ private:
     std::vector<sf::RectangleShape> mainRects;
     int selectedButton = -1;
     
-    sf::Text* exitText = nullptr;
+    std::vector<sf::Text> modeButtons;
+    std::vector<sf::RectangleShape> modeRects;
+    int selectedMode = -1;
+    
+    std::unique_ptr<sf::Text> exitText;
     sf::RectangleShape exitRect;
     bool exitHovered = false;
     
-    sf::Text* toggleText1 = nullptr;
-    sf::Text* toggleText2 = nullptr;
+    std::unique_ptr<sf::Text> toggleText1;
+    std::unique_ptr<sf::Text> toggleText2;
     sf::RectangleShape toggleBg;
     sf::RectangleShape toggleKnob;
     bool isPvE = false;
     bool toggleHovered = false;
     
-    std::vector<sf::Text> modeButtons;
-    std::vector<sf::RectangleShape> modeRects;
-    int selectedMode = 0;
-    bool modeHovered = false;
-    
 public:
     Menu(sf::RenderWindow& win);
-    ~Menu();
     
     void draw();
     void handleClick(int x, int y);
