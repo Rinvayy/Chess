@@ -61,6 +61,9 @@ private:
     void drawInfoPanel();
     void handleClick(int x, int y);
     void checkGameEnd();
+
+private:
+    bool isBoardFlipped = false;
 };
 
 #endif

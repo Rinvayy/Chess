@@ -17,9 +17,27 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
         return;
     }
     fontLoaded = true;
+
+    tasksText = std::make_unique<sf::Text>(font);
+    
+    tasksButton.setSize(sf::Vector2f({280, 55}));
+    tasksButton.setFillColor(sf::Color(40, 80, 140));
+    tasksButton.setOutlineColor(sf::Color(30, 60, 110));
+    tasksButton.setOutlineThickness(2);
+    tasksButton.setPosition({260, 130});
+    
+    std::string tasksStr = "Задачи";
+    tasksText->setString(sf::String::fromUtf8(tasksStr.begin(), tasksStr.end()));
+    tasksText->setCharacterSize(34);
+    tasksText->setFillColor(sf::Color::White);
+    tasksText->setStyle(sf::Text::Bold);
+    
+    float tasksTextX = 260 + (280 - tasksText->getLocalBounds().size.x) / 2;
+    float tasksTextY = 130 + (55 - tasksText->getLocalBounds().size.y) / 2 - 5;
+    tasksText->setPosition({tasksTextX, tasksTextY});
     
     std::vector<std::string> mainNames = {"Играть"};
-    float y = 200;
+    float y = 220;
     
     for (size_t i = 0; i < mainNames.size(); ++i) {
         sf::Text text(font);
@@ -135,6 +153,10 @@ Menu::Menu(sf::RenderWindow& win) : window(win) {
     toggleText2->setPosition({470, 462});
 }
 
+Menu::~Menu() {
+    // автоматически очищают память
+}
+
 void Menu::draw() {
     window.clear(sf::Color(220, 200, 160));
     
@@ -158,8 +180,16 @@ void Menu::draw() {
     title.setFillColor(sf::Color(100, 50, 20));
     title.setStyle(sf::Text::Bold);
     float titleX = (WINDOW_WIDTH - title.getLocalBounds().size.x) / 2;
-    title.setPosition({titleX, 60});
+    title.setPosition({titleX, 30});
     window.draw(title);
+    
+    if (tasksHovered) {
+        tasksButton.setFillColor(sf::Color(60, 100, 180));
+    } else {
+        tasksButton.setFillColor(sf::Color(40, 80, 140));
+    }
+    window.draw(tasksButton);
+    window.draw(*tasksText);
     
     sf::Text modeTitle(font);
     std::string modeTitleStr = "Выберите режим:";
@@ -226,6 +256,11 @@ void Menu::draw() {
 }
 
 void Menu::handleClick(int x, int y) {
+    if (tasksButton.getGlobalBounds().contains({(float)x, (float)y})) {
+        selectedButton = 3;  // задачи
+        return;
+    }
+    
     for (size_t i = 0; i < modeRects.size(); ++i) {
         sf::FloatRect rect = modeRects[i].getGlobalBounds();
         if (rect.contains({(float)x, (float)y})) {
@@ -259,6 +294,12 @@ void Menu::handleClick(int x, int y) {
 }
 
 void Menu::handleMouseMove(int x, int y) {
+    tasksHovered = tasksButton.getGlobalBounds().contains({(float)x, (float)y});
+    if (tasksHovered) {
+        selectedButton = -1;
+        return;
+    }
+    
     for (size_t i = 0; i < modeRects.size(); ++i) {
         sf::FloatRect rect = modeRects[i].getGlobalBounds();
         if (rect.contains({(float)x, (float)y})) {
@@ -305,4 +346,5 @@ void Menu::resetSelection() {
     selectedButton = -1;
     exitHovered = false;
     toggleHovered = false;
+    tasksHovered = false;
 }

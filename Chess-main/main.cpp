@@ -3,6 +3,7 @@
 #include <memory>
 #include "Menu.h"
 #include "ChessBoard.h"
+#include "TaskBoard.h"
 
 int main() {
     std::cout << "Launching the program\n";
@@ -12,6 +13,7 @@ int main() {
     
     bool inMenu = true;
     std::unique_ptr<ChessBoard> game;
+    std::unique_ptr<TaskBoard> taskBoard;
     
     while (window.isOpen()) {
         while (auto event = window.pollEvent()) {
@@ -50,9 +52,22 @@ int main() {
                             
                             window.create(sf::VideoMode({800, 600}), "Chess - Menu");
                             inMenu = true;
+                            
+                        } else if (selected == 3) {
+                            inMenu = false;
+                            menu.resetSelection();
+                            window.close();
+                            
+                            taskBoard = std::make_unique<TaskBoard>();
+                            taskBoard->run();
+                            
+                            window.create(sf::VideoMode({800, 600}), "Chess - Menu");
+                            inMenu = true;
+                            
                         } else if (selected == 1) {
                             std::cout << "Use the switch below\n";
                             menu.resetSelection();
+                            
                         } else if (selected == 2) {
                             window.close();
                         }

@@ -22,6 +22,8 @@ add_executable(Chess-main
     fen.cpp
     PieceRenderer.cpp
     figures.cpp
+    TaskManager.cpp
+    TaskBoard.cpp
 )
 
 target_link_libraries(Chess-main PRIVATE

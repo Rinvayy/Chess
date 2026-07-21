@@ -31,8 +31,13 @@ private:
     bool isPvE = false;
     bool toggleHovered = false;
     
+    sf::RectangleShape tasksButton;
+    std::unique_ptr<sf::Text> tasksText;
+    bool tasksHovered = false;
+    
 public:
     Menu(sf::RenderWindow& win);
+    ~Menu();
     
     void draw();
     void handleClick(int x, int y);
