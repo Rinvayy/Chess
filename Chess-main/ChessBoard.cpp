@@ -26,13 +26,15 @@ ChessBoard::ChessBoard(GameMode mode, bool aiMode, Color playerColor)
     if (!pieceRenderer.loadTextures()) {
         std::cout << "Failed to load piece textures\n";
     }
+    //запускаем фоновую музыку
+    soundManager.startBackgroundMusic();
     
     //кнопка переключения цвета
     switchColorButton.setSize(sf::Vector2f({140, 30}));
     switchColorButton.setFillColor(sf::Color(80, 40, 20));
     switchColorButton.setOutlineColor(sf::Color(60, 30, 10));
     switchColorButton.setOutlineThickness(2);
-    switchColorButton.setPosition({(float)(BOARD_SIZE + 30), 310});
+    switchColorButton.setPosition({(float)(BOARD_SIZE + 30), 400});
     
     switchColorText = new sf::Text(font);
     std::string btnText = "Сменить цвет";
@@ -42,7 +44,7 @@ ChessBoard::ChessBoard(GameMode mode, bool aiMode, Color playerColor)
     switchColorText->setStyle(sf::Text::Bold);
     
     float textX = BOARD_SIZE + 30 + (140 - switchColorText->getLocalBounds().size.x) / 2;
-    float textY = 310 + (30 - switchColorText->getLocalBounds().size.y) / 2 - 2;
+    float textY = 400 + (30 - switchColorText->getLocalBounds().size.y) / 2 - 2;
     switchColorText->setPosition({(float)textX, (float)textY});
     
     //устанавливаем начальную позицию
@@ -69,8 +71,10 @@ void ChessBoard::run() {
             sf::sleep(sf::milliseconds(300));
             Move bestMove = ai.getBestMove(aiColor);
             if (bestMove.fromRow != -1) {
+                bool isCapture = !board.getFigure(bestMove.toRow, bestMove.toCol).isEmpty();
                 board.makeMove(bestMove.fromRow, bestMove.fromCol, 
                              bestMove.toRow, bestMove.toCol);
+                soundManager.playMove(isCapture);  //звук хода
                 checkGameEnd();
             }
         }
@@ -125,6 +129,10 @@ void ChessBoard::run() {
                     board = Board();
                     hasSelected = false;
                     std::cout << "New game!\n";
+                }
+                //включение/выключение музыки
+                if (key && key->scancode == sf::Keyboard::Scancode::M) {
+                    soundManager.toggleMusic();
                 }
             }
         }
@@ -347,6 +355,7 @@ void ChessBoard::drawInfoPanel() {
     std::vector<std::string> shortcuts = {
         "A - Вкл/выкл игру с ПК",
         "R - Новая игра",
+        "M - Музыка",
         "Ctrl+S - Сохранить",
         "Ctrl+L - Загрузить"
     };
@@ -360,6 +369,15 @@ void ChessBoard::drawInfoPanel() {
         window.draw(text);
         yPos += 22;
     }
+    
+    //статус музыки
+    sf::Text musicText(font);
+    std::string musicStr = "Музыка: " + std::string(soundManager.isMusicPlaying() ? "Вкл" : "Выкл");
+    musicText.setString(sf::String::fromUtf8(musicStr.begin(), musicStr.end()));
+    musicText.setCharacterSize(14);
+    musicText.setFillColor(soundManager.isMusicPlaying() ? sf::Color::Green : sf::Color(150, 150, 150));
+    musicText.setPosition({(float)BOARD_SIZE + 30, (float)yPos});
+    window.draw(musicText);
 }
 
 void ChessBoard::handleClick(int x, int y) {
@@ -388,16 +406,21 @@ void ChessBoard::handleClick(int x, int y) {
             selectedRow = boardRow;
             selectedCol = boardCol;
             hasSelected = true;
+            soundManager.playClick();  //звук клика
             std::cout << "Selected: " << (char)('a' + boardCol) << (8 - boardRow) << "\n";
         }
     } else {
+        bool isCapture = !board.getFigure(boardRow, boardCol).isEmpty();
+        
         if (board.makeMove(selectedRow, selectedCol, boardRow, boardCol)) {
+            soundManager.playMove(isCapture);  //звук хода
             hasSelected = false;
             checkGameEnd();
         } else {
             if (!fig.isEmpty() && fig.color == board.getCurrentPlayer()) {
                 selectedRow = boardRow;
                 selectedCol = boardCol;
+                soundManager.playClick();
             } else {
                 hasSelected = false;
             }
@@ -407,12 +430,15 @@ void ChessBoard::handleClick(int x, int y) {
 
 void ChessBoard::checkGameEnd() {
     Color current = board.getCurrentPlayer();
+    
     if (board.isCheckmate(current)) {
         std::cout << "МАТ! " 
                   << (current == Color::WHITE ? "Белые" : "Черные") 
                   << " проиграли!\n";
+        soundManager.playGameOver();  //звук мата
     } else if (board.isStalemate(current)) {
         std::cout << "ПАТ! Ничья!\n";
+        soundManager.playGameOver();  //звук пата
     } else if (board.isInCheck(current)) {
         std::cout << "ШАХ! Королю " 
                   << (current == Color::WHITE ? "белых" : "черных") 

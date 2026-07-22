@@ -9,6 +9,7 @@
 #include "ai.h"
 #include "fen.h"
 #include "PieceRenderer.h"
+#include "SoundManager.h"
 
 enum class GameMode {
     CLASSIC,
@@ -44,6 +45,8 @@ private:
     sf::RectangleShape switchColorButton;
     sf::Text* switchColorText = nullptr;
     bool isSwitchColorHovered = false;
+    
+    SoundManager soundManager;
     
 public:
     ChessBoard(GameMode mode, bool aiMode, Color playerColor = Color::WHITE);
